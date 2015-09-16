@@ -15,11 +15,18 @@ define([
             searchField: "[data-role='store-search-field']",
             url: '',
             selectionUrl: '',
+            storeDetailUrl: '',
+            selectedStore: '',
             template: resultTmpl,
             storeSelectorVisible: false,
             storeSelectorSelector: "#instorepickup-storeselector",
             storeNavSelector: ".store-nav",
-            modalWindow: null
+            storeSearchInputSelector: "#store-search",
+            modalWindow: null,
+            storeSearchTriggerSelector: ".instorepickup-search-trigger",
+            storeSwitcherSelector: "#switcher-instorepickup",
+            navContainerSelector: ".instorepickup-nav-container",
+            storeDetailSelector: ".switcher-dropdown"
         },
 
         /**
@@ -27,11 +34,19 @@ define([
          * @private
          */
         _create: function () {
-            this._on({'click [data-role="store-selector"]': $.proxy(this._onSearch, this)});
-            this._on({'click [data-role="store-selector-choice"]': $.proxy(this._onStoreChoice, this)});
+            var self = this;
 
-            $(this.options.storeNavSelector).on({'click': $.proxy(this._onNavClick, this)});
+            this._on({'click [data-role="store-selector"]': $.proxy(this._onSearch, this)});
+            $(this.options.storeSearchInputSelector).keyup(function (e) {
+                if (e.keyCode == 13) {
+                    self._onSearch();
+                }
+            });
+
+            $(this.options.storeSearchTriggerSelector).on({'click': $.proxy(this._onNavClick, this)});
             this.createPopUp($(this.options.storeSelectorSelector));
+            $(this.options.storeSelectorSelector).show();
+            $(this.options.storeSwitcherSelector).show();
         },
 
         /**
@@ -41,7 +56,7 @@ define([
             if (this.options.modalWindow) {
                 $(this.options.modalWindow).modal('openModal');
             } else {
-                alert($t('Store Selector is disabled.'));
+                alert('Store Selector is disabled.');
             }
         },
 
@@ -52,7 +67,7 @@ define([
             if (this.options.modalWindow) {
                 $(this.options.modalWindow).modal('closeModal');
             } else {
-                alert($t('Store Selector is disabled.'));
+                alert('Store Selector is disabled.');
             }
         },
 
@@ -91,8 +106,7 @@ define([
             }).done(function (response) {
                 self._drawResultTable(response);
             }).fail(function (response) {
-                //var msg = $("<div/>").addClass("message notice").text(response.responseJSON.message);
-                var msg = $("<div/>").addClass("message notice").text(response);
+                var msg = $("<div/>").addClass("message notice").text(response.responseText);
                 this.find(self.options.resultContainer).prepend(msg);
             });
         },
@@ -106,16 +120,18 @@ define([
             var tmpl = mageTemplate(this.options.template);
             tmpl = tmpl({data: response});
             this.element.find(this.options.resultContainer).append($(tmpl));
+
+            $('button[data-role="store-selector-choice"]').on('click', $.proxy(this._onStoreChoice, this));
         },
 
         /**
          * Submit store selection
          */
-        _onStoreChoice: function() {
+        _onStoreChoice: function(context) {
             var self = this;
 
             var params = {
-                "store-id": 255
+                "store-id": context.currentTarget.parentElement.elements["store-id"].value
             };
 
             $.ajax({
@@ -127,8 +143,7 @@ define([
             }).done(function (response) {
                 self._finishStoreChoice(response);
             }).fail(function (response) {
-                //var msg = $("<div/>").addClass("message notice").text(response.responseJSON.message);
-                var msg = $("<div/>").addClass("message notice").text(response);
+                var msg = $("<div/>").addClass("message notice").text(response.responseText);
                 this.find(self.options.resultContainer).prepend(msg);
             });
         },
@@ -139,6 +154,28 @@ define([
          * @private
          */
         _finishStoreChoice: function(response){
+            var self = this;
+
+            // Display the chosen store
+            if ($(this.options.navContainerSelector+' strong a.instorepickup-search-trigger').length > 0) {
+                $(this.options.navContainerSelector+' strong a.instorepickup-search-trigger').remove();
+                $(this.options.navContainerSelector+' strong').append('<span class="action toggle instorepickup-trigger" id="switcher-instorepickup-trigger" title="My Store">My Store: ' + response.chosenStore['name'] + '</span>')
+            } else {
+                $(this.options.navContainerSelector+' strong span.instorepickup-trigger').text('My Store: ' + response.chosenStore['name']);
+            }
+            // ajax call to get html for detail section
+            $.ajax({
+                url: this.options.storeDetailUrl,
+                dataType: 'html',
+                context: $('body')
+            }).done(function (response) {
+                $(self.options.storeDetailSelector).empty();
+                $(self.options.storeDetailSelector).append(response);
+            }).fail(function (response) {
+                var msg = $("<div/>").addClass("message notice").text(response.responseText);
+                this.find(self.options.resultContainer).prepend(msg);
+            });
+
             this._closePopup();
         }
     });

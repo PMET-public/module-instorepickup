@@ -5,17 +5,12 @@ namespace MagentoEse\InStorePickup\Controller\StoreSearch;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\View\Result\Page;
-use Magento\Framework\Json\Helper\Data;
 use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
 use MagentoEse\InStorePickup\Model\StoreLocation;
+use Magento\Framework\Controller\ResultFactory;
 
-class Selection extends Action
+class Detail extends Action
 {
-    /**
-     * @var Data
-     */
-    protected $jsonHelper;
-
     /**
      * Store Location Cookie Manager
      *
@@ -32,17 +27,14 @@ class Selection extends Action
 
     /**
      * @param Context $context
-     * @param Data $jsonHelper
      * @param StoreLocationCookieManager $storeLocationCookieManager
      * @param StoreLocation $storeLocation
      */
     public function __construct(
         Context $context,
-        Data $jsonHelper,
         StoreLocationCookieManager $storeLocationCookieManager,
         StoreLocation $storeLocation
     ) {
-        $this->jsonHelper = $jsonHelper;
         $this->storeLocationCookieManager = $storeLocationCookieManager;
         $this->storeLocation = $storeLocation;
         parent::__construct($context);
@@ -54,44 +46,36 @@ class Selection extends Action
      */
     public function execute()
     {
-        $params = (array)$this->getRequest()->getParams();
-
-        $response = [];
-        $response['params'] = $params;
-
         // check for existing store
         $currentStoreLocationId = $this->storeLocationCookieManager->getStoreLocationIdFromCookie();
 
-        $storeLocationId = $params['store-id'];
-        $this->storeLocation->load($storeLocationId);
+        $this->storeLocation->load($currentStoreLocationId);
         if ($this->storeLocation != null) {
 
-            $this->storeLocationCookieManager->setStoreCookie($this->storeLocation);
-
-            // respond with selected store details
-            $response['chosenStore'] = [
-                'id' => $this->storeLocation->getId(),
-                'name' => $this->storeLocation->getName()
-            ];
-
-            $response['success'] = true;
-            $response['message'] = 'Store saved';
-
-            // store location switched
-            if ($currentStoreLocationId != null) {
-                $response['locationSwitched'] = true;
-            }
+            // Get StoreDetail block and render only it's contents
         } else {
-            $response['success'] = false;
-            $response['message'] = 'Error selecting a store';
+            // Send back no store html
         }
 
-        // Represent the response as JSON and encode the response object as a JSON data set
-        $this->getResponse()->representJson(
-            $this->jsonHelper->jsonEncode($response)
-        );
+
+
+        try {
+            /** @var \Magento\Framework\View\Result\Page $response */
+            $response = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+            $layout = $response->addHandle('instorepickup_storesearch_detail')->getLayout();
+
+            $response = $layout->getBlock('magentoese_instorepickup_storedetails')->toHtml();
+            $this->getResponse()->setBody($response);
+            return;
+        } catch (\Magento\Framework\Exception\LocalizedException $e) {
+            $this->messageManager->addExceptionMessage($e, $e->getMessage());
+        } catch (\Exception $e) {
+            $this->messageManager->addExceptionMessage($e, __('We can\'t update shipping method.'));
+        }
+
+
 
         // Bypass post the dispatch events from the app action
-        $this->_actionFlag->set('', self::FLAG_NO_POST_DISPATCH, true);
+        //$this->_actionFlag->set('', self::FLAG_NO_POST_DISPATCH, true);
     }
 }

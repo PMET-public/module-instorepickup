@@ -95,7 +95,7 @@ class Collection extends \Magento\Framework\Model\Resource\Db\Collection\Abstrac
      */
     public function addZipcodeDistanceFilter($zipcode, $distance = 50)
     {
-        $zipLoc = $this->createZipLocInstance();
+        $zipLoc = $this->zipLocFactory->create();
         $geomPointText = $zipLoc->getGeomPointTextByZipcode($zipcode);
 
         $this->addDistanceColumn($geomPointText);
@@ -160,13 +160,5 @@ class Collection extends \Magento\Framework\Model\Resource\Db\Collection\Abstrac
                 )
             )", Collection::EARTH_RADIUS_IN_MILES, $originGeomPointText, $originGeomPointText, $originGeomPointText
         );
-    }
-
-    /**
-     * @return \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocation
-     */
-    protected function createZipLocInstance()
-    {
-        return $this->zipLocFactory->create();
     }
 }

@@ -6,11 +6,12 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Json\Helper\Data;
+use MagentoEse\InStorePickup\Model\Resource\StoreLocation\CollectionFactory;
 
 class Index extends Action
 {
     /**
-     * @var \MagentoEse\InStorePickup\Model\Resource\StoreLocation\CollectionFactory
+     * @var CollectionFactory
      */
     private $storeLocColFactory;
 
@@ -22,13 +23,12 @@ class Index extends Action
     /**
      * @param Context $context
      * @param Data $jsonHelper
-     * @param \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocationFactory $zipLocFactory
-     * @param \MagentoEse\InStorePickup\Model\Resource\StoreLocation\CollectionFactory $storeLocColFactory
+     * @param CollectionFactory $storeLocColFactory
      */
     public function __construct(
         Context $context,
         Data $jsonHelper,
-        \MagentoEse\InStorePickup\Model\Resource\StoreLocation\CollectionFactory $storeLocColFactory
+        CollectionFactory $storeLocColFactory
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->storeLocColFactory = $storeLocColFactory;
@@ -49,15 +49,17 @@ class Index extends Action
         $limitResults = 20;
 
         // Initialize the store location collection
-        $storeLocCol = $this->createStoreLocColInstance();
+        $storeLocCol = $this->storeLocColFactory->create();
         $storeLocCol->addZipcodeDistanceFilter($zipcode, $distance);
         $storeLocCol->setPageSize($limitResults);
         $storeLocCol->addOrder($storeLocCol::DISTANCE_COLUMN, $storeLocCol::SORT_ORDER_ASC);
 
         // Build the response data set
         $response = [];
+        $response['distance'] = $distance;
+        $response['zipcode'] = $zipcode;
         foreach ($storeLocCol as $storeLoc) {
-            $response[] = [
+            $response['stores'][] = [
                 'id' => $storeLoc->getId(),
                 'name' => $storeLoc->getName(),
                 'street_address' => $storeLoc->getStreetAddress(),
@@ -76,13 +78,5 @@ class Index extends Action
 
         // Bypass post the dispatch events from the app action
         $this->_actionFlag->set('', self::FLAG_NO_POST_DISPATCH, true);
-    }
-
-    /**
-     * @return \MagentoEse\InStorePickup\Model\Resource\StoreLocation\Collection
-     */
-    protected function createStoreLocColInstance()
-    {
-        return $this->storeLocColFactory->create();
     }
 }

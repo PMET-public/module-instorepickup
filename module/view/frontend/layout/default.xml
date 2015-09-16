@@ -2,10 +2,13 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="root">
-            <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="magentoese_instorepickup_storeselector" after="page.wrapper" template="store_selector.phtml"/>
+            <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="magentoese_instorepickup_storeselector" after="page.wrapper" template="store_selector.phtml" cacheable="false"/>
         </referenceContainer>
         <referenceBlock name="top.links">
-            <block class="MagentoEse\InStorePickup\Block\StoreNav" name="store-nav" before="-" template="store_nav.phtml" />
+            <block class="MagentoEse\InStorePickup\Block\StoreNav" name="instorepickup_nav" before="-" template="store_nav.phtml" cacheable="false"/>
         </referenceBlock>
+        <referenceContainer name="instorepickup_nav">
+            <block class="MagentoEse\InStorePickup\Block\StoreDetails" name="magentoese_instorepickup_storedetails" after="page.wrapper" template="store_details.phtml" cacheable="false"/>
+        </referenceContainer>
     </body>
 </page>

@@ -28,4 +28,14 @@ class StoreSelector extends \Magento\Framework\View\Element\Template
     {
         return $this->getUrl('instorepickup/storesearch/selection', ['_secure' => $this->getRequest()->isSecure()]);
     }
+
+    /**
+     * Retrieve store detail url and set "secure" param
+     *
+     * @return string
+     */
+    public function getStoreDetailUrl()
+    {
+        return $this->getUrl('instorepickup/storesearch/detail', ['_secure' => $this->getRequest()->isSecure()]);
+    }
 }

@@ -1,7 +1,7 @@
-<% if (data.length) { %>
-<div class="result-summary">There are <%- data.length %> Stores within ? miles of ?.</div>
+<% if (typeof data.stores != "undefined" && data.stores.length) { %>
+<div class="result-summary">There are <%- data.stores.length %> Stores within <%- data.distance %> miles of <%- data.zipcode %>.</div>
 <ul>
-    <% _.each(data, function(record) { %>
+    <% _.each(data.stores, function(record) { %>
     <li>
         <form action="#" method="post">
             <input type="hidden" name="store-id" value="<%- record['id'] %>">

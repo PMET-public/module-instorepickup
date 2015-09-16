@@ -1,16 +1,6 @@
 <?php
-
-namespace MagentoEse\InStorePickup\Setup;
-
-class DirectoryZipcode
-{
-
-    /**
-     * Directory Zipcode Data
-     *
-     * @var array
-     */
-    public $data = [
+return array ( 
+    [
         ['00501', '+40.922326', '-072.637078', 'HOLTSVILLE', 'NY', 'SUFFOLK', 'UNIQUE'],
         ['00544', '+40.922326', '-072.637078', 'HOLTSVILLE', 'NY', 'SUFFOLK', 'UNIQUE'],
         ['00601', '+18.165273', '-066.722583', 'ADJUNTAS', 'PR', 'ADJUNTAS', 'STANDARD'],
@@ -7997,7 +7987,9 @@ class DirectoryZipcode
         ['19504', '+40.335395', '-075.720131', 'BARTO', 'PA', 'BERKS', 'STANDARD'],
         ['19505', '+40.458523', '-075.741863', 'BECHTELSVILLE', 'PA', 'BERKS', 'STANDARD'],
         ['19506', '+40.454997', '-075.906460', 'BERNVILLE', 'PA', 'BERKS', 'STANDARD'],
-        ['19507', '+40.491214', '-076.269231', 'BETHEL', 'PA', 'BERKS', 'STANDARD'],
+        ['19507', '+40.491214', '-076.269231', 'BETHEL', 'PA', 'BERKS', 'STANDARD']
+    ],
+    [
         ['19508', '+40.404848', '-075.886642', 'BIRDSBORO', 'PA', 'BERKS', 'STANDARD'],
         ['19510', '+40.371492', '-075.887797', 'BLANDON', 'PA', 'BERKS', 'STANDARD'],
         ['19511', '+40.482102', '-075.743476', 'BOWERS', 'PA', 'BERKS', 'PO BOX ONLY'],
@@ -15994,7 +15986,9 @@ class DirectoryZipcode
         ['36528', '+30.254867', '-088.134900', 'DAUPHIN ISLAND', 'AL', 'MOBILE', 'STANDARD'],
         ['36529', '+31.406683', '-088.175846', 'DEER PARK', 'AL', 'WASHINGTON', 'STANDARD'],
         ['36530', '+30.412773', '-087.549041', 'ELBERTA', 'AL', 'BALDWIN', 'STANDARD'],
-        ['36532', '+30.562883', '-087.810464', 'FAIRHOPE', 'AL', 'BALDWIN', 'STANDARD'],
+        ['36532', '+30.562883', '-087.810464', 'FAIRHOPE', 'AL', 'BALDWIN', 'STANDARD']
+    ],
+    [
         ['36533', '+30.484131', '-087.860613', 'FAIRHOPE', 'AL', 'BALDWIN', 'STANDARD'],
         ['36535', '+30.467608', '-087.692401', 'FOLEY', 'AL', 'BALDWIN', 'STANDARD'],
         ['36536', '+30.422160', '-087.706371', 'FOLEY', 'AL', 'BALDWIN', 'STANDARD'],
@@ -23992,7 +23986,9 @@ class DirectoryZipcode
         ['54741', '+44.659822', '-091.014753', 'FAIRCHILD', 'WI', 'EAU CLAIRE', 'STANDARD'],
         ['54742', '+44.762892', '-091.306304', 'FALL CREEK', 'WI', 'EAU CLAIRE', 'STANDARD'],
         ['54743', '+44.311074', '-091.806396', 'GILMANTON', 'WI', 'BUFFALO', 'PO BOX ONLY'],
-        ['54744', '+45.319786', '-091.881754', 'HILLSDALE', 'WI', 'BARRON', 'STANDARD'],
+        ['54744', '+45.319786', '-091.881754', 'HILLSDALE', 'WI', 'BARRON', 'STANDARD']
+    ],
+    [
         ['54745', '+45.150752', '-091.121308', 'HOLCOMBE', 'WI', 'CHIPPEWA', 'STANDARD'],
         ['54746', '+44.516708', '-090.709853', 'HUMBIRD', 'WI', 'CLARK', 'STANDARD'],
         ['54747', '+44.356483', '-091.443718', 'INDEPENDENCE', 'WI', 'TREMPEALEAU', 'STANDARD'],
@@ -31990,7 +31986,9 @@ class DirectoryZipcode
         ['72766', '+35.994030', '-094.219977', 'SPRINGDALE', 'AR', 'WASHINGTON', 'STANDARD'],
         ['72768', '+36.384794', '-094.449942', 'SULPHUR SPRINGS', 'AR', 'BENTON', 'STANDARD'],
         ['72769', '+36.027589', '-094.493930', 'SUMMERS', 'AR', 'WASHINGTON', 'STANDARD'],
-        ['72770', '+36.149980', '-094.242884', 'TONTITOWN', 'AR', 'WASHINGTON', 'PO BOX ONLY'],
+        ['72770', '+36.149980', '-094.242884', 'TONTITOWN', 'AR', 'WASHINGTON', 'PO BOX ONLY']
+    ],
+    [
         ['72773', '+36.033601', '-093.704255', 'WESLEY', 'AR', 'MADISON', 'STANDARD'],
         ['72774', '+35.980250', '-094.198446', 'WEST FORK', 'AR', 'WASHINGTON', 'STANDARD'],
         ['72776', '+36.033601', '-093.704255', 'WITTER', 'AR', 'MADISON', 'STANDARD'],
@@ -39988,7 +39986,9 @@ class DirectoryZipcode
         ['94526', '+37.914851', '-122.053573', 'DANVILLE', 'CA', 'CONTRA COSTA', 'STANDARD'],
         ['94527', '+37.953542', '-121.957778', 'CONCORD', 'CA', 'CONTRA COSTA', 'STANDARD'],
         ['94528', '+37.838744', '-121.966720', 'DIABLO', 'CA', 'CONTRA COSTA', 'PO BOX ONLY'],
-        ['94529', '+37.777208', '-121.955399', 'CONCORD', 'CA', 'CONTRA COSTA', 'UNIQUE'],
+        ['94529', '+37.777208', '-121.955399', 'CONCORD', 'CA', 'CONTRA COSTA', 'UNIQUE']
+    ],
+    [
         ['94530', '+37.918024', '-122.302480', 'EL CERRITO', 'CA', 'CONTRA COSTA', 'STANDARD'],
         ['94531', '+37.920852', '-121.723919', 'ANTIOCH', 'CA', 'CONTRA COSTA', 'STANDARD'],
         ['94533', '+38.278428', '-122.020276', 'FAIRFIELD', 'CA', 'SOLANO', 'STANDARD'],
@@ -42752,5 +42752,5 @@ class DirectoryZipcode
         ['99928', '+55.395359', '-131.675370', 'WARD COVE', 'AK', 'KETCHIKAN GATEWAY', 'PO BOX ONLY'],
         ['99929', '+56.449893', '-132.364407', 'WRANGELL', 'AK', 'WRANGELL PETERSBURG', 'PO BOX ONLY'],
         ['99950', '+55.542007', '-131.432682', 'KETCHIKAN', 'AK', 'KETCHIKAN GATEWAY', 'STANDARD'],
-    ];
-}
+    ]
+);

@@ -1,7 +1,16 @@
 <?php
 
 namespace MagentoEse\InStorePickup\Model;
-
+/**
+ * Store Location model
+ *
+ * @method string getName()
+ * @method string getStreetAddress()
+ * @method string getCity()
+ * @method string getState()
+ * @method string getPostalCode()
+ * @method string getPhone()
+ */
 class StoreLocation extends \Magento\Framework\Model\AbstractModel
 {
     /**

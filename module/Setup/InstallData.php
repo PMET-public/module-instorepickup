@@ -14,27 +14,24 @@ class InstallData implements InstallDataInterface
     /**
      * Directory of Stores
      *
-     * @var DirectoryStore
+     * @var array
      */
     private $directoryStore;
 
     /**
      * Directory of Zipcodes
      *
-     * @var DirectoryZipcode
+     * @var array
      */
     private $directoryZipcode;
 
     /**
      * Init
-     *
-     * @param DirectoryStore $directoryStore
-     * @param DirectoryZipcode $directoryZipcode
      */
-    public function __construct(DirectoryStore $directoryStore, DirectoryZipcode $directoryZipcode)
+    public function __construct()
     {
-        $this->directoryStore = $directoryStore;
-        $this->directoryZipcode = $directoryZipcode;
+        $this->directoryStore = require 'DirectoryStore.php';
+        $this->directoryZipcode = require 'DirectoryZipcode.php';
     }
 
     /**
@@ -47,12 +44,14 @@ class InstallData implements InstallDataInterface
          * Fill table directory_location_pickup_store with sample data
          */
         $columns = ['name', 'street_address', 'city', 'state', 'postal_code', 'phone', 'lat_deg', 'lon_deg', 'lat_rad', 'lon_rad', 'real_phone'];
-        $setup->getConnection()->insertArray($setup->getTable('directory_location_pickup_store'), $columns, $this->directoryStore->data);
+        $setup->getConnection()->insertArray($setup->getTable('directory_location_pickup_store'), $columns, $this->directoryStore);
 
         /**
          * Fill table directory_location_us_zip_code with sample data
          */
         $columns = ['zip', 'lat', 'lon', 'city', 'state', 'county', 'type'];
-        $setup->getConnection()->insertArray($setup->getTable('directory_location_us_zip_code'), $columns, $this->directoryZipcode->data);
+        foreach ($this->directoryZipcode as $chunk) {
+            $setup->getConnection()->insertArray($setup->getTable('directory_location_us_zip_code'), $columns, $chunk);
+        }
     }
 }
