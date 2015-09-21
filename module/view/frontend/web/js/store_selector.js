@@ -11,22 +11,19 @@ define([
     $.widget('magentoeseInStorePickup.storeSelector', {
         options: {
             resultContainer: "[data-role='result']",
-            fieldset: "[data-role='store-search']",
             searchField: "[data-role='store-search-field']",
-            url: '',
+            searchUrl: '',
             selectionUrl: '',
-            storeDetailUrl: '',
-            selectedStore: '',
+            hasStoreBeenChosen: false,
+
             template: resultTmpl,
-            storeSelectorVisible: false,
-            storeSelectorSelector: "#instorepickup-storeselector",
-            storeNavSelector: ".store-nav",
-            storeSearchInputSelector: "#store-search",
             modalWindow: null,
+            storeSelectorSelector: "#instorepickup-storeselector",
+            storeNavSelector: ".instorepickup-trigger",
+            storeSearchInputSelector: "#store-search",
             storeSearchTriggerSelector: ".instorepickup-search-trigger",
-            storeSwitcherSelector: "#switcher-instorepickup",
-            navContainerSelector: ".instorepickup-nav-container",
-            storeDetailSelector: ".switcher-dropdown"
+            storeChangeTriggerSelector: ".instorepickup-change-trigger",
+            storeDropdownSelector: ".instorepickup-dropdown"
         },
 
         /**
@@ -36,43 +33,25 @@ define([
         _create: function () {
             var self = this;
 
+            // Create the popup for searching stores
+            this._createPopUp($(this.options.storeSelectorSelector));
+            $(this.options.storeSelectorSelector).show();
+
+            // Bind elements to display search popup modal
+            $(this.options.storeSearchTriggerSelector).on({'click': $.proxy(this._onNavClick, this)});
+            this._bindForStoreChange();
+
+            // Bind events for getting results of a zipcode search inside the popup modal
             this._on({'click [data-role="store-selector"]': $.proxy(this._onSearch, this)});
             $(this.options.storeSearchInputSelector).keyup(function (e) {
                 if (e.keyCode == 13) {
                     self._onSearch();
                 }
             });
-
-            $(this.options.storeSearchTriggerSelector).on({'click': $.proxy(this._onNavClick, this)});
-            this.createPopUp($(this.options.storeSelectorSelector));
-            $(this.options.storeSelectorSelector).show();
-            $(this.options.storeSwitcherSelector).show();
-        },
-
-        /**
-         * Respond to Navigation click event
-         */
-        _onNavClick: function() {
-            if (this.options.modalWindow) {
-                $(this.options.modalWindow).modal('openModal');
-            } else {
-                alert('Store Selector is disabled.');
-            }
-        },
-
-        /**
-         * close the popup
-         */
-        _closePopup: function() {
-            if (this.options.modalWindow) {
-                $(this.options.modalWindow).modal('closeModal');
-            } else {
-                alert('Store Selector is disabled.');
-            }
         },
 
         /** Create popUp window for provided element */
-        createPopUp: function(element) {
+        _createPopUp: function(element) {
             this.options.modalWindow = element;
             var options = {
                 'type': 'popup',
@@ -83,6 +62,64 @@ define([
                 'buttons': []
             };
             modal(options, $(this.options.modalWindow));
+        },
+
+        /**
+         * Bind for click event on store change elements
+         */
+        _bindForStoreChange: function() {
+            $(this.options.storeChangeTriggerSelector).on({'click': $.proxy(this._onStoreChangeClick, this)});
+        },
+
+        /**
+         * Respond to Navigation click event
+         */
+        _onNavClick: function() {
+            if (this.options.hasStoreBeenChosen == false) {
+
+                // close the dropdown menu if it was open
+                // reference: http://stackoverflow.com/questions/8506621/accessing-widget-instance-from-outside-widget
+                $(this.options.storeDropdownSelector).data("mageDropdownDialog").close();
+
+                // open the popup modal window
+                this.openPopup();
+            }
+        },
+
+        /**
+         * Respond to Change Store click event
+         */
+        _onStoreChangeClick: function() {
+
+            // close the dropdown menu if it was open
+            // reference: http://stackoverflow.com/questions/8506621/accessing-widget-instance-from-outside-widget
+            $(this.options.storeDropdownSelector).data("mageDropdownDialog").close();
+
+            // open the popup modal window
+            this.openPopup();
+        },
+
+        /**
+         * Open the popup
+         */
+        openPopup: function() {
+            if (this.options.modalWindow) {
+                $(this.options.modalWindow).modal('openModal');
+                $(this.options.storeSearchInputSelector).focus();
+            } else {
+                alert('Store Selector is disabled.');
+            }
+        },
+
+        /**
+         * Close the popup
+         */
+        closePopup: function() {
+            if (this.options.modalWindow) {
+                $(this.options.modalWindow).modal('closeModal');
+            } else {
+                alert('Store Selector is disabled.');
+            }
         },
 
         /**
@@ -98,13 +135,13 @@ define([
             };
 
             $.ajax({
-                url: self.options.url,
+                url: self.options.searchUrl,
                 dataType: 'json',
                 data: params,
                 context: $('body'),
                 showLoader: true
             }).done(function (response) {
-                self._drawResultTable(response);
+                self._displaySearchResults(response);
             }).fail(function (response) {
                 var msg = $("<div/>").addClass("message notice").text(response.responseText);
                 this.find(self.options.resultContainer).prepend(msg);
@@ -116,7 +153,7 @@ define([
          * @param response
          * @private
          */
-        _drawResultTable: function(response){
+        _displaySearchResults: function(response){
             var tmpl = mageTemplate(this.options.template);
             tmpl = tmpl({data: response});
             this.element.find(this.options.resultContainer).append($(tmpl));
@@ -134,6 +171,7 @@ define([
                 "store-id": context.currentTarget.parentElement.elements["store-id"].value
             };
 
+            // AJAX call to set cookie with store location id and get store details from Magento
             $.ajax({
                 url: self.options.selectionUrl,
                 dataType: 'json',
@@ -154,29 +192,20 @@ define([
          * @private
          */
         _finishStoreChoice: function(response){
-            var self = this;
+            // Set chosen option to prevent search popup on nav click
+            this.options.hasStoreBeenChosen = true;
 
-            // Display the chosen store
-            if ($(this.options.navContainerSelector+' strong a.instorepickup-search-trigger').length > 0) {
-                $(this.options.navContainerSelector+' strong a.instorepickup-search-trigger').remove();
-                $(this.options.navContainerSelector+' strong').append('<span class="action toggle instorepickup-trigger" id="switcher-instorepickup-trigger" title="My Store">My Store: ' + response.chosenStore['name'] + '</span>')
-            } else {
-                $(this.options.navContainerSelector+' strong span.instorepickup-trigger').text('My Store: ' + response.chosenStore['name']);
-            }
-            // ajax call to get html for detail section
-            $.ajax({
-                url: this.options.storeDetailUrl,
-                dataType: 'html',
-                context: $('body')
-            }).done(function (response) {
-                $(self.options.storeDetailSelector).empty();
-                $(self.options.storeDetailSelector).append(response);
-            }).fail(function (response) {
-                var msg = $("<div/>").addClass("message notice").text(response.responseText);
-                this.find(self.options.resultContainer).prepend(msg);
-            });
+            // Update page navigation with the chosen store
+            $(this.options.storeNavSelector+' strong span').text('My Store: ' + response.storeName);
 
-            this._closePopup();
+            // Update page store location dropdown with store details
+            $(this.options.storeDropdownSelector).empty();
+            $(this.options.storeDropdownSelector).append(response.storeDetailHtml);
+
+            // Rebind any store change elements after injecting new HTML
+            this._bindForStoreChange();
+
+            this.closePopup();
         }
     });
 

@@ -2,18 +2,66 @@
 
 namespace MagentoEse\InStorePickup\Block;
 
+use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
+use MagentoEse\InStorePickup\Model\StoreLocation;
+
 /**
  * Store Selector block
  */
 class StoreSelector extends \Magento\Framework\View\Element\Template
 {
     /**
+     * Store Location Cookie Manager
+     *
+     * @var StoreLocationCookieManager
+     */
+    protected $storeLocationCookieManager;
+
+    /**
+     * Store Location
+     *
+     * @var StoreLocation
+     */
+    protected $storeLocation;
+
+    /**
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param StoreLocationCookieManager $storeLocationCookieManager
+     * @param StoreLocation $storeLocation
+     * @param array $data
+     */
+    public function __construct(
+        \Magento\Framework\View\Element\Template\Context $context,
+        StoreLocationCookieManager $storeLocationCookieManager,
+        StoreLocation $storeLocation,
+        array $data = []
+    ) {
+        $this->storeLocationCookieManager = $storeLocationCookieManager;
+        $this->storeLocation = $storeLocation;
+        parent::__construct($context, $data);
+    }
+
+    /**
+     * Flag indicating if a store has been chosen already
+     *
+     * @return bool
+     */
+    public function hasStoreBeenChosen() {
+        if ($this->storeLocationCookieManager->getStoreLocationIdFromCookie() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
      * Retrieve form action url and set "secure" param to avoid confirm
      * message when we submit form from secure page to unsecure
      *
      * @return string
      */
-    public function getFormActionUrl()
+    public function getFormSearchActionUrl()
     {
         return $this->getUrl('instorepickup/storesearch/index', ['_secure' => $this->getRequest()->isSecure()]);
     }
@@ -27,15 +75,5 @@ class StoreSelector extends \Magento\Framework\View\Element\Template
     public function getFormSelectionActionUrl()
     {
         return $this->getUrl('instorepickup/storesearch/selection', ['_secure' => $this->getRequest()->isSecure()]);
-    }
-
-    /**
-     * Retrieve store detail url and set "secure" param
-     *
-     * @return string
-     */
-    public function getStoreDetailUrl()
-    {
-        return $this->getUrl('instorepickup/storesearch/detail', ['_secure' => $this->getRequest()->isSecure()]);
     }
 }

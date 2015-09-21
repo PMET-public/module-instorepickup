@@ -7,16 +7,16 @@ $storeLocation = $block->getChosenStoreLocation();
 <div class="switcher instorepickup switcher-instorepickup" data-ui-id="instorepickup-switcher" id="switcher-instorepickup">
 
     <div class="actions dropdown options switcher-options">
-        <div class="instorepickup-nav-container">
+        <div class="action toggle instorepickup-trigger instorepickup-nav-container instorepickup-search-trigger" id="switcher-instorepickup-trigger">
             <strong>
                 <?php if($block->hasStoreBeenChosen()): ?>
-                    <span class="action toggle instorepickup-trigger" id="switcher-instorepickup-trigger" title="My Store">My Store: <?php echo $storeLocation->getName() ?></span>
+                    <span>My Store: <?php echo $storeLocation->getName() ?></span>
                 <?php else: ?>
-                    <a class="action instorepickup-search-trigger" title="My Store" href="#">My Store</a>
+                    <span>My Store</span>
                 <?php endif; ?>
             </strong>
         </div>
-        <div class="instorepickup-dropdown"
+        <div class="dropdown instorepickup-dropdown"
              data-role="dropdownDialog"
              data-mage-init='{"dropdownDialog":{
                 "appendTo":"#switcher-instorepickup > .options",
@@ -28,8 +28,6 @@ $storeLocation = $block->getChosenStoreLocation();
 
             <?php if($block->hasStoreBeenChosen()): ?>
                 <?php echo $block->getChildHtml(); ?>
-            <?php else: ?>
-                <span>No Store Selected</span>
             <?php endif; ?>
         </div>
     </div>

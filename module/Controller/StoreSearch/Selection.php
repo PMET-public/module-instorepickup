@@ -8,6 +8,7 @@ use Magento\Framework\View\Result\Page;
 use Magento\Framework\Json\Helper\Data;
 use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
 use MagentoEse\InStorePickup\Model\StoreLocation;
+use Magento\Framework\Controller\ResultFactory;
 
 class Selection extends Action
 {
@@ -56,34 +57,30 @@ class Selection extends Action
     {
         $params = (array)$this->getRequest()->getParams();
 
+        // Respond back with list of params originally sent
         $response = [];
         $response['params'] = $params;
 
-        // check for existing store
-        $currentStoreLocationId = $this->storeLocationCookieManager->getStoreLocationIdFromCookie();
-
-        $storeLocationId = $params['store-id'];
-        $this->storeLocation->load($storeLocationId);
+        // Load the store location based on the ID sent in the params
+        $this->storeLocation->load($params['store-id']);
         if ($this->storeLocation != null) {
 
+            // Set the new cookie value
             $this->storeLocationCookieManager->setStoreCookie($this->storeLocation);
 
             // respond with selected store details
-            $response['chosenStore'] = [
-                'id' => $this->storeLocation->getId(),
-                'name' => $this->storeLocation->getName()
-            ];
+            $response['storeName'] = $this->storeLocation->getName();
 
-            $response['success'] = true;
-            $response['message'] = 'Store saved';
-
-            // store location switched
-            if ($currentStoreLocationId != null) {
-                $response['locationSwitched'] = true;
+            // Get HTML to update store detail dropdown box
+            try {
+                /** @var \Magento\Framework\View\Result\Page $response */
+                $detailResult = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+                $detailLayout = $detailResult->addHandle('instorepickup_storesearch_detail')->getLayout();
+                $detailBlock = $detailLayout->getBlock('magentoese_instorepickup_storedetails');
+                $response['storeDetailHtml'] = $detailBlock->toHtml();
+            } catch (\Exception $e) {
+                $this->messageManager->addExceptionMessage($e, __('Error getting store location details.'));
             }
-        } else {
-            $response['success'] = false;
-            $response['message'] = 'Error selecting a store';
         }
 
         // Represent the response as JSON and encode the response object as a JSON data set

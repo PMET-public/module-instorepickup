@@ -6,9 +6,11 @@
 
 <div id="instorepickup-storeselector" data-mage-init='{
         "magentoeseInStorePickupStoreSelector": {
-            "url": "<?php echo $block->getFormActionUrl() ?>",
-            "selectionUrl": "<?php echo $block->getFormSelectionActionUrl() ?>",
-            "storeDetailUrl": "<?php echo $block->getStoreDetailUrl() ?>"
+            "searchUrl": "<?php echo $block->getFormSearchActionUrl() ?>",
+            "selectionUrl": "<?php echo $block->getFormSelectionActionUrl() ?>"
+            <?php if($block->hasStoreBeenChosen()): ?>
+                ,"hasStoreBeenChosen": "true"
+            <?php endif; ?>
         }
     }'>
     <div class="input-box">

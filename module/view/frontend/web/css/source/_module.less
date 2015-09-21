@@ -1,25 +1,101 @@
-#switcher-instorepickup {
-    /* hide selector contents initially and allow javascript to show contents when the javascript initializes the popup */
-    display: none;
-}
 #instorepickup-storeselector {
     /* hide selector contents initially and allow javascript to show contents when the javascript initializes the popup */
     display: none;
 }
-.instorepickup-dropdown {
-    background: #ffffff;
-    border: 1px solid #bbbbbb;
-    z-index: 100;
-    margin: 0;
-    padding: 0;
-    list-style: none none;
-    box-sizing: border-box;
-    position: absolute;
-    top: 100%;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
-    margin-top: 4px;
-    min-width: 100%;
-    display: none;
+.switcher-instorepickup {
+    .dropdown {
+        .lib-dropdown(
+        @_toggle-selector: ~".instorepickup-nav-container",
+        @_options-selector: ~".instorepickup-dropdown",
+        @_dropdown-list-item-hover: false
+        );
+    }.instorepickup-dropdown {
+         width: 300px;
+         cursor: auto;
+         > h3 {
+             color: #888888 !important;
+             float: left;
+             padding: 5px 0 0 10px;
+             margin: 0 0 5px 0;
+             text-transform: none;
+             width: 100%;
+             line-height: 1.4 !important;
+             font-weight: normal;
+             height: 30px;
+             box-sizing: border-box;
+         }
+         > h4 {
+             float: left;
+             font-size: 12px;
+             margin-top: 15px;
+             padding-left: 10px;
+             margin-bottom: 5px;
+             text-transform: none;
+             width: 100%;
+             box-sizing: border-box;
+             > span.action {
+                 font-weight: normal;
+                 margin-left: 15px;
+                 color: #1979c3 !important;
+                 cursor: pointer;
+             }
+             > span.action:hover {
+                 text-decoration: underline;
+             }
+             > a {
+                 font-weight: normal;
+                 margin-left: 15px;
+                 color: #1979c3 !important;
+             }
+         }
+         > address {
+             float: left;
+             font-size: 12px;
+             margin-bottom: 5px;
+             padding-left: 10px;
+             width: 100%;
+             box-sizing: border-box;
+         }
+         > ul {
+             float: left;
+             font-size: 12px;
+             margin: 5px 0 0 0;
+             padding: 10px;
+             width: 100%;
+             list-style-type: none;
+             box-sizing: border-box;
+             cursor: auto;
+             li {
+                 float: left;
+                 width: 100%;
+                 padding-left: 8px;
+                 padding-right: 8px;
+                 box-sizing: border-box;
+                 cursor: auto !important;
+                 > * {
+                     float: left;
+                     line-height: 23px !important;
+                     padding-left: 10px;
+                     text-align: left;
+                     cursor: auto;
+                 }
+                 > p {
+                     float: left;
+                     margin: 0;
+                     cursor: auto;
+                 }
+                 > span {
+                     float: right;
+                     padding-right: 35px;
+                     cursor: auto;
+                 }
+             }
+             .odd {
+                 background: #f0f0f0;
+             }
+         }
+     }
+
 }
 .instorepickup-storeselector-popup {
     .modal-inner-wrap {

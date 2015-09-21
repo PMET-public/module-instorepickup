@@ -6,8 +6,29 @@ use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
 use MagentoEse\InStorePickup\Model\StoreLocation;
 
 /**
- * Store Selector block
+ * Store Location Detail block
  */
 class StoreDetails extends StoreNav
 {
+    /**
+     * Retrieve directions url
+     *
+     * @return string
+     */
+    public function getDirectionsUrl(StoreLocation $storeLocation)
+    {
+        // Load the chosen store
+        $this->getChosenStoreLocation();
+
+        // Build a string represneting the store address
+        $destinationAddress =
+            $storeLocation->getStreetAddress() . ", " .
+            $storeLocation->getCity() . ", " . $storeLocation->getState() . " " . $storeLocation->getPostalCode();
+
+        // URL Encode the address
+        $destinationAddress = urlencode($destinationAddress);
+
+        $url = "http://maps.google.com/maps?daddr=" . $destinationAddress;
+        return $url;
+    }
 }

@@ -33,6 +33,11 @@ class StoreLocationCookieManager
     protected $cookieManager;
 
     /**
+     * @var String
+     */
+    protected $newCookieValue;
+
+    /**
      * @param CookieMetadataFactory $cookieMetadataFactory
      * @param CookieManagerInterface $cookieManager
      */
@@ -49,7 +54,11 @@ class StoreLocationCookieManager
      */
     public function getStoreLocationIdFromCookie()
     {
-        return $this->cookieManager->getCookie(self::COOKIE_NAME);
+        if ($this->newCookieValue != null) {
+            return $this->newCookieValue;
+        } else {
+            return $this->cookieManager->getCookie(self::COOKIE_NAME);
+        }
     }
 
     /**
@@ -58,6 +67,8 @@ class StoreLocationCookieManager
      */
     public function setStoreCookie(StoreLocation $storeLocation)
     {
+        $this->newCookieValue = $storeLocation->getId();
+
         $cookieMetadata = $this->cookieMetadataFactory->createPublicCookieMetadata()
             ->setHttpOnly(false)
             ->setDuration(self::COOKIE_DURATION)

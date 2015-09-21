@@ -6,7 +6,7 @@ use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
 use MagentoEse\InStorePickup\Model\StoreLocation;
 
 /**
- * Store Selector block
+ * Store Location Navigation block
  */
 class StoreNav extends \Magento\Framework\View\Element\Template
 {
