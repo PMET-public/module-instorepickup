@@ -4,36 +4,35 @@
  */
 $storeLocation = $block->getChosenStoreLocation();
 ?>
-<h3>My Local Stores</h3>
-<h4><?php echo $storeLocation->getName(); ?> <span class="action instorepickup-change-trigger">Change</span> <a href="<?php echo $block->getDirectionsUrl($storeLocation); ?>" target="_blank" class="instorepickup-getdirections">Get Directions</a></h4>
+<h3><?php echo __('My Local Stores') ?></h3>
+<h4><?php echo $storeLocation->getName(); ?> <span class="action instorepickup-change-trigger"><?php echo __('Change') ?></span> <a href="<?php echo $block->getDirectionsUrl($storeLocation); ?>" target="_blank" class="instorepickup-getdirections"><?php echo __('Get Directions') ?></a></h4>
 <address><?php echo $storeLocation->getStreetAddress(); ?><br><?php echo $storeLocation->getCity(); ?>, <?php echo $storeLocation->getState(); ?> <?php echo $storeLocation->getPostalCode(); ?><br><?php echo $storeLocation->getPhone(); ?></address>
 
 <?php /* include static block here */ ?>
-<h4>Regular Hours</h4>
+<h4><?php echo __('Regular Hours') ?></h4>
 <ul>
     <li class="odd">
-        <p>Monday</p>
-        <span>10:00am to 9:00pm</span>
+        <p><?php echo __('Monday') ?></p>
+        <span><?php echo __('10:00am to 9:00pm') ?></span>
     </li>
     <li class="even">
-        <p>Tuesday</p>
-        <span>10:00am to 9:00pm</span>
+        <p><?php echo __('Tuesday') ?></p>
+        <span><?php echo __('10:00am to 9:00pm') ?></span>
     </li>
     <li class="odd">
-        <p>Wednesday</p>
-        <span>10:00am to 9:00pm</span>
+        <p><?php echo __('Wednesday') ?></p>
+        <span><?php echo __('10:00am to 9:00pm') ?></span>
     </li>
     <li class="even">
-        <p>Thursday</p>
-        <span>10:00am to 9:00pm</span>
+        <p><?php echo __('Thursday') ?></p>
+        <span><?php echo __('10:00am to 9:00pm') ?></span>
     </li>
     <li class="odd">
-        <p>Saturday</p>
-        <span>10:00am to 9:00pm</span>
+        <p><?php echo __('Saturday') ?></p>
+        <span><?php echo __('10:00am to 9:00pm') ?></span>
     </li>
-
     <li class="even">
-        <p>Sunday</p>
-        <span>11:00am to 6:00pm</span>
+        <p><?php echo __('Sunday') ?></p>
+        <span><?php echo __('11:00am to 6:00pm') ?></span>
     </li>
 </ul>

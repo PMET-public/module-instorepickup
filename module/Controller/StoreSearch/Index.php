@@ -11,6 +11,16 @@ use MagentoEse\InStorePickup\Model\Resource\StoreLocation\CollectionFactory;
 class Index extends Action
 {
     /**
+     * Used for calculating distance from point in radius search
+     */
+    const DISTANCE = 50;
+
+    /**
+     * Maximum number of records to return in result set
+     */
+    const LIMIT_RESULTS = 20;
+
+    /**
      * @var CollectionFactory
      */
     private $storeLocColFactory;
@@ -45,18 +55,16 @@ class Index extends Action
 
         // Define parameters for looking up available stores
         $zipcode = $params['searchCriteria'];
-        $distance = 50;
-        $limitResults = 20;
 
         // Initialize the store location collection
         $storeLocCol = $this->storeLocColFactory->create();
-        $storeLocCol->addZipcodeDistanceFilter($zipcode, $distance);
-        $storeLocCol->setPageSize($limitResults);
+        $storeLocCol->addZipcodeDistanceFilter($zipcode, $this::DISTANCE);
+        $storeLocCol->setPageSize($this::LIMIT_RESULTS);
         $storeLocCol->addOrder($storeLocCol::DISTANCE_COLUMN, $storeLocCol::SORT_ORDER_ASC);
 
         // Build the response data set
         $response = [];
-        $response['distance'] = $distance;
+        $response['distance'] = $this::DISTANCE;
         $response['zipcode'] = $zipcode;
         foreach ($storeLocCol as $storeLoc) {
             $response['stores'][] = [

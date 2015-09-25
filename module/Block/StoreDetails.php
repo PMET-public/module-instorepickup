@@ -13,6 +13,7 @@ class StoreDetails extends StoreNav
     /**
      * Retrieve directions url
      *
+     * @param StoreLocation $storeLocation
      * @return string
      */
     public function getDirectionsUrl(StoreLocation $storeLocation)
@@ -20,7 +21,7 @@ class StoreDetails extends StoreNav
         // Load the chosen store
         $this->getChosenStoreLocation();
 
-        // Build a string represneting the store address
+        // Build a string representing the store address
         $destinationAddress =
             $storeLocation->getStreetAddress() . ", " .
             $storeLocation->getCity() . ", " . $storeLocation->getState() . " " . $storeLocation->getPostalCode();

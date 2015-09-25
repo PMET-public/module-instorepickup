@@ -46,13 +46,10 @@ class StoreSelector extends \Magento\Framework\View\Element\Template
      *
      * @return bool
      */
-    public function hasStoreBeenChosen() {
-        if ($this->storeLocationCookieManager->getStoreLocationIdFromCookie() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public function hasStoreBeenChosen()
+    {
+        // Return true if there is an ID value
+        return $this->storeLocationCookieManager->getStoreLocationIdFromCookie() > 0;
     }
 
     /**

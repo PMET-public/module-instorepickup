@@ -4,8 +4,9 @@ define([
     'text!./templates/result.html',
     'ko',
     'Magento_Ui/js/modal/modal',
-    'jquery/ui'
-], function ($, mageTemplate, resultTmpl, ko, modal){
+    'jquery/ui',
+    'mage/translate'
+], function ($, mageTemplate, resultTemplate, ko, modal){
     "use strict";
 
     $.widget('magentoeseInStorePickup.storeSelector', {
@@ -16,7 +17,7 @@ define([
             selectionUrl: '',
             hasStoreBeenChosen: false,
 
-            template: resultTmpl,
+            template: resultTemplate,
             modalWindow: null,
             storeSelectorSelector: "#instorepickup-storeselector",
             storeNavSelector: ".instorepickup-trigger",
@@ -55,7 +56,7 @@ define([
             this.options.modalWindow = element;
             var options = {
                 'type': 'popup',
-                'title': 'Find your local store',
+                'title': $.mage.__('Find your local store'),
                 'modalClass': 'instorepickup-storeselector-popup',
                 'responsive': true,
                 'innerScroll': true,
@@ -107,7 +108,7 @@ define([
                 $(this.options.modalWindow).modal('openModal');
                 $(this.options.storeSearchInputSelector).focus();
             } else {
-                alert('Store Selector is disabled.');
+                alert($.mage.__('Store Selector is disabled.'));
             }
         },
 
@@ -118,7 +119,7 @@ define([
             if (this.options.modalWindow) {
                 $(this.options.modalWindow).modal('closeModal');
             } else {
-                alert('Store Selector is disabled.');
+                alert($.mage.__('Store Selector is disabled.'));
             }
         },
 
@@ -154,9 +155,9 @@ define([
          * @private
          */
         _displaySearchResults: function(response){
-            var tmpl = mageTemplate(this.options.template);
-            tmpl = tmpl({data: response});
-            this.element.find(this.options.resultContainer).append($(tmpl));
+            var template = mageTemplate(this.options.template);
+            template = template({data: response});
+            this.element.find(this.options.resultContainer).append($(template));
 
             $('button[data-role="store-selector-choice"]').on('click', $.proxy(this._onStoreChoice, this));
         },
@@ -196,7 +197,7 @@ define([
             this.options.hasStoreBeenChosen = true;
 
             // Update page navigation with the chosen store
-            $(this.options.storeNavSelector+' strong span').text('My Store: ' + response.storeName);
+            $(this.options.storeNavSelector+' strong span').text($.mage.__('My Store: ') + response.storeName);
 
             // Update page store location dropdown with store details
             $(this.options.storeDropdownSelector).empty();
