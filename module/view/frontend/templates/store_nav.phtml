@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var $block \MagentoEse\InStorePickup\Block\StoreNav
+ */
+$storeLocation = $block->getChosenStoreLocation();
+?>
+<div class="switcher instorepickup switcher-instorepickup" data-ui-id="instorepickup-switcher" id="switcher-instorepickup">
+
+    <div class="actions dropdown options switcher-options">
+        <div class="action toggle instorepickup-trigger instorepickup-nav-container instorepickup-search-trigger" id="switcher-instorepickup-trigger">
+            <strong>
+                <?php if($block->hasStoreBeenChosen()): ?>
+                    <span>My Store: <?php echo $storeLocation->getName() ?></span>
+                <?php else: ?>
+                    <span>My Store</span>
+                <?php endif; ?>
+            </strong>
+        </div>
+        <div class="dropdown instorepickup-dropdown"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"#switcher-instorepickup > .options",
+                "triggerTarget":"#switcher-instorepickup-trigger",
+                "closeOnMouseLeave": false,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":null}}'>
+
+            <?php if($block->hasStoreBeenChosen()): ?>
+                <?php echo $block->getChildHtml(); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var $block \MagentoEse\InStorePickup\Block\StoreSelector
+ */
+?>
+
+<div id="instorepickup-storeselector" data-mage-init='{
+        "magentoeseInStorePickupStoreSelector": {
+            "searchUrl": "<?php echo $block->getFormSearchActionUrl() ?>",
+            "selectionUrl": "<?php echo $block->getFormSelectionActionUrl() ?>"
+            <?php if($block->hasStoreBeenChosen()): ?>
+                ,"hasStoreBeenChosen": "true"
+            <?php endif; ?>
+        }
+    }'>
+    <div class="input-box">
+        <fieldset class="fieldset" data-role="store-search">
+            <input id="store-search" type="text" name="search_query" value=""
+                   data-role="store-search-field"
+                   placeholder="<?php echo __('Enter your postal code') ?>"
+                   class="input-text"
+                   maxlength="5"
+                   data-validate="{'required':true, 'validate-zip-international':true}"/>
+        </fieldset>
+        <button class="action store-search" data-role="store-selector" title="<?php echo __('Search') ?>" type="submit">
+            <span><?php echo __('Search') ?></span>
+        </button>
+    </div>
+    <div class="result" data-role="result"></div>
+</div>
