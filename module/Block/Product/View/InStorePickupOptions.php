@@ -1,14 +1,15 @@
 <?php
 
-namespace MagentoEse\InStorePickup\Block;
+namespace MagentoEse\InStorePickup\Block\Product\View;
 
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
 use MagentoEse\InStorePickup\Model\StoreLocation;
 
 /**
- * Store Location Navigation block
+ * In Store Pickup block
  */
-class StoreNav extends \Magento\Framework\View\Element\Template
+class InStorePickupOptions extends \Magento\Framework\View\Element\Template
 {
     /**
      * Store Location Cookie Manager
@@ -31,16 +32,20 @@ class StoreNav extends \Magento\Framework\View\Element\Template
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         StoreLocationCookieManager $storeLocationCookieManager,
         StoreLocation $storeLocation,
         array $data = []
     ) {
-//        $this->_isScopePrivate = true;
+        $this->_isScopePrivate = true;
 
+        $this->_coreRegistry = $context->getRegistry();
         $this->storeLocationCookieManager = $storeLocationCookieManager;
         $this->storeLocation = $storeLocation;
-        parent::__construct($context, $data);
+        parent::__construct(
+            $context,
+            $data
+        );
     }
 
     /**

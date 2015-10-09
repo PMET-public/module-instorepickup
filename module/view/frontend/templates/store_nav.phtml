@@ -10,9 +10,9 @@ $storeLocation = $block->getChosenStoreLocation();
         <div class="action toggle instorepickup-trigger instorepickup-nav-container instorepickup-search-trigger" id="switcher-instorepickup-trigger">
             <strong>
                 <?php if($block->hasStoreBeenChosen()): ?>
-                    <span>My Store: <?php echo $storeLocation->getName() ?></span>
+                    <span><?php echo __('My Store') ?>: <?php echo $storeLocation->getName() ?></span>
                 <?php else: ?>
-                    <span>My Store</span>
+                    <span><?php echo __('My Store') ?></span>
                 <?php endif; ?>
             </strong>
         </div>

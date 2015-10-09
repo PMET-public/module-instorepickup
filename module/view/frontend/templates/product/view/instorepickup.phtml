@@ -1,0 +1,13 @@
+<?php
+
+/** @var $block \MagentoEse\InStorePickup\Block\Product\View\InStorePickup */
+?>
+<div class="instorepickup-pdp-wrapper">
+<?php if ($block->isAvailableInStore()): ?>
+    <?php echo $block->getChildHtml('product.info.instorepickup.options') ?>
+<?php else: ?>
+    <span><?php echo __('Availability') ?></span>
+    <p><?php echo $block->getAvailabilityText() ?></p>
+<?php endif; ?>
+</div>
+

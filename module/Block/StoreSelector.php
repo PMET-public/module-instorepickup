@@ -36,6 +36,8 @@ class StoreSelector extends \Magento\Framework\View\Element\Template
         StoreLocation $storeLocation,
         array $data = []
     ) {
+//        $this->_isScopePrivate = true;
+
         $this->storeLocationCookieManager = $storeLocationCookieManager;
         $this->storeLocation = $storeLocation;
         parent::__construct($context, $data);

@@ -2,6 +2,8 @@
 
 namespace MagentoEse\InStorePickup\Setup;
 
+use Magento\Eav\Setup\EavSetup;
+use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -23,13 +25,23 @@ class InstallData implements InstallDataInterface
      *
      * @var array
      */
+
     private $directoryZipcode;
+    /**
+     * EAV setup factory
+     *
+     * @var EavSetupFactory
+     */
+    private $eavSetupFactory;
 
     /**
      * Init
+     *
+     * @param EavSetupFactory $eavSetupFactory
      */
-    public function __construct()
+    public function __construct(EavSetupFactory $eavSetupFactory)
     {
+        $this->eavSetupFactory = $eavSetupFactory;
         $this->directoryStore = require 'DirectoryStore.php';
         $this->directoryZipcode = require 'DirectoryZipcode.php';
     }
@@ -53,5 +65,47 @@ class InstallData implements InstallDataInterface
         foreach ($this->directoryZipcode as $chunk) {
             $setup->getConnection()->insertArray($setup->getTable('directory_location_us_zip_code'), $columns, $chunk);
         }
+
+        /** @var EavSetup $eavSetup */
+        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+
+        /**
+         * Add attributes to the eav/attribute
+         */
+
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'in_store_available',
+            [
+                'group' => 'Product Details',
+                'type' => 'int',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Available in Store',
+                'input' => 'select',
+                'class' => '',
+                'source' => '',
+                'global' => \Magento\Catalog\Model\Resource\Eav\Attribute::SCOPE_GLOBAL,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => false,
+                'default' => 'Online Exclusive',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'used_in_product_listing' => false,
+                'unique' => false,
+                'is_used_in_grid' => false,
+                'is_visible_in_grid' => false,
+                'is_filterable_in_grid' => false,
+                'option' => [
+                    'values' => [
+                        'In Store',
+                        'Online Exclusive'
+                    ]
+                ]
+            ]
+        );
     }
 }
