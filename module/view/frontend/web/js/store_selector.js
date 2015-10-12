@@ -175,6 +175,7 @@ define([
             // AJAX call to set cookie with store location id and get store details from Magento
             $.ajax({
                 url: self.options.selectionUrl,
+                type: 'POST',
                 dataType: 'json',
                 data: params,
                 context: $('body'),

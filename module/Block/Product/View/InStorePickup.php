@@ -3,11 +3,9 @@
 namespace MagentoEse\InStorePickup\Block\Product\View;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
-use MagentoEse\InStorePickup\Model\StoreLocation;
 
 /**
- * In Store Pickup block
+ * In Store Pickup block for Product View pages
  */
 class InStorePickup extends \Magento\Framework\View\Element\Template
 {
@@ -24,10 +22,8 @@ class InStorePickup extends \Magento\Framework\View\Element\Template
     protected $productRepository;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param ProductRepositoryInterface|\Magento\Framework\Pricing\PriceCurrencyInterface $productRepository
-     * @param StoreLocationCookieManager $storeLocationCookieManager
-     * @param StoreLocation $storeLocation
+     * @param \Magento\Catalog\Block\Product\Context $context
+     * @param ProductRepositoryInterface $productRepository
      * @param array $data
      */
     public function __construct(
@@ -35,8 +31,6 @@ class InStorePickup extends \Magento\Framework\View\Element\Template
         ProductRepositoryInterface $productRepository,
         array $data = []
     ) {
-//        $this->_isScopePrivate = true;
-
         $this->_coreRegistry = $context->getRegistry();
         $this->productRepository = $productRepository;
         parent::__construct(
@@ -52,10 +46,6 @@ class InStorePickup extends \Magento\Framework\View\Element\Template
      */
     public function getProduct()
     {
-        if (!$this->_coreRegistry->registry('product') && $this->getProductId()) {
-            $product = $this->productRepository->getById($this->getProductId());
-            $this->_coreRegistry->register('product', $product);
-        }
         return $this->_coreRegistry->registry('product');
     }
 

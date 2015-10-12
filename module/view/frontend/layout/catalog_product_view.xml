@@ -18,7 +18,7 @@
             </action>
         </referenceBlock>
         <block class="MagentoEse\InStorePickup\Block\Product\View\InStorePickup" name="product.info.instorepickup" template="MagentoEse_InStorePickup::product/view/instorepickup.phtml">
-            <block class="MagentoEse\InStorePickup\Block\Product\View\InStorePickupOptions" name="product.info.instorepickup.options" template="MagentoEse_InStorePickup::product/view/instorepickup_options.phtml"/>
+            <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="product.info.instorepickup.options" template="MagentoEse_InStorePickup::product/view/instorepickup_options.phtml"/>
         </block>
     </body>
 </page>

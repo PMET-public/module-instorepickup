@@ -2,8 +2,7 @@
 
 namespace MagentoEse\InStorePickup\Block;
 
-use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
-use MagentoEse\InStorePickup\Model\StoreLocation;
+use MagentoEse\InStorePickup\Model\Session;
 
 /**
  * Store Selector block
@@ -11,36 +10,34 @@ use MagentoEse\InStorePickup\Model\StoreLocation;
 class StoreSelector extends \Magento\Framework\View\Element\Template
 {
     /**
-     * Store Location Cookie Manager
+     * Store Location session
      *
-     * @var StoreLocationCookieManager
+     * @var Session\StoreLocation
      */
-    protected $storeLocationCookieManager;
-
-    /**
-     * Store Location
-     *
-     * @var StoreLocation
-     */
-    protected $storeLocation;
+    protected $storeLocationSession;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param StoreLocationCookieManager $storeLocationCookieManager
-     * @param StoreLocation $storeLocation
+     * @param Session\StoreLocation $storeLocationSession
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        StoreLocationCookieManager $storeLocationCookieManager,
-        StoreLocation $storeLocation,
+        Session\StoreLocation $storeLocationSession,
         array $data = []
     ) {
-//        $this->_isScopePrivate = true;
-
-        $this->storeLocationCookieManager = $storeLocationCookieManager;
-        $this->storeLocation = $storeLocation;
+        $this->storeLocationSession = $storeLocationSession;
         parent::__construct($context, $data);
+    }
+
+    /**
+     * Get the current chosen store location
+     *
+     * @return \MagentoEse\InStorePickup\Model\StoreLocation
+     */
+    public function getChosenStoreLocation()
+    {
+        return $this->storeLocationSession->getStoreLocation();
     }
 
     /**
@@ -50,8 +47,7 @@ class StoreSelector extends \Magento\Framework\View\Element\Template
      */
     public function hasStoreBeenChosen()
     {
-        // Return true if there is an ID value
-        return $this->storeLocationCookieManager->getStoreLocationIdFromCookie() > 0;
+        return $this->storeLocationSession->hasStoreLocationSession();
     }
 
     /**
@@ -74,5 +70,27 @@ class StoreSelector extends \Magento\Framework\View\Element\Template
     public function getFormSelectionActionUrl()
     {
         return $this->getUrl('instorepickup/storesearch/selection', ['_secure' => $this->getRequest()->isSecure()]);
+    }
+
+    /**
+     * Retrieve directions url
+     *
+     * @return string
+     */
+    public function getDirectionsUrl()
+    {
+        // Get the chosen store
+        $storeLocation = $this->storeLocationSession->getStoreLocation();
+
+        // Build a string representing the store address
+        $destinationAddress =
+            $storeLocation->getStreetAddress() . ", " .
+            $storeLocation->getCity() . ", " . $storeLocation->getState() . " " . $storeLocation->getPostalCode();
+
+        // URL Encode the address
+        $destinationAddress = urlencode($destinationAddress);
+
+        $url = "http://maps.google.com/maps?daddr=" . $destinationAddress;
+        return $url;
     }
 }

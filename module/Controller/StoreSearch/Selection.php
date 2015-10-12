@@ -6,9 +6,9 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Json\Helper\Data;
-use MagentoEse\InStorePickup\Model\StoreLocationCookieManager;
-use MagentoEse\InStorePickup\Model\StoreLocation;
 use Magento\Framework\Controller\ResultFactory;
+use MagentoEse\InStorePickup\Model\StoreLocationFactory;
+use MagentoEse\InStorePickup\Model\Session;
 
 class Selection extends Action
 {
@@ -18,36 +18,37 @@ class Selection extends Action
     protected $jsonHelper;
 
     /**
-     * Store Location Cookie Manager
+     * Store Location Factory
      *
-     * @var StoreLocationCookieManager
+     * @var StoreLocationFactory
      */
-    protected $storeLocationCookieManager;
+    protected $storeLocationFactory;
 
     /**
-     * Store Location
+     * Store Location session
      *
-     * @var StoreLocation
+     * @var Session\StoreLocation
      */
-    protected $storeLocation;
+    protected $storeLocationSession;
 
     /**
      * @param Context $context
      * @param Data $jsonHelper
-     * @param StoreLocationCookieManager $storeLocationCookieManager
-     * @param StoreLocation $storeLocation
+     * @param StoreLocationFactory $storeLocationFactory
+     * @param Session\StoreLocation $storeLocationSession
      */
     public function __construct(
         Context $context,
         Data $jsonHelper,
-        StoreLocationCookieManager $storeLocationCookieManager,
-        StoreLocation $storeLocation
+        StoreLocationFactory $storeLocationFactory,
+        Session\StoreLocation $storeLocationSession
     ) {
         $this->jsonHelper = $jsonHelper;
-        $this->storeLocationCookieManager = $storeLocationCookieManager;
-        $this->storeLocation = $storeLocation;
+        $this->storeLocationFactory = $storeLocationFactory;
+        $this->storeLocationSession = $storeLocationSession;
         parent::__construct($context);
     }
+
     /**
      * Selection action
      *
@@ -62,18 +63,19 @@ class Selection extends Action
         $response['params'] = $params;
 
         // Load the store location based on the ID sent in the params
-        $this->storeLocation->load($params['store-id']);
-        if ($this->storeLocation != null) {
+        $storeLocation = $this->storeLocationFactory->create();
+        $storeLocation->load($params['store-id']);
+        if ($storeLocation->getId() > 0) {
 
-            // Set the new cookie value
-            $this->storeLocationCookieManager->setStoreCookie($this->storeLocation);
+            // Save the Store Location selection to the session
+            $this->storeLocationSession->setStoreLocation($storeLocation);
 
             // respond with selected store details
-            $response['storeName'] = $this->storeLocation->getName();
+            $response['storeName'] = $storeLocation->getName();
 
             // Get HTML to update store detail dropdown box
             try {
-                /** @var \Magento\Framework\View\Result\Page $response */
+                /** @var \Magento\Framework\View\Result\Page $detailResult */
                 $detailResult = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
                 $detailLayout = $detailResult->addHandle('instorepickup_storesearch_detail')->getLayout();
                 $detailBlock = $detailLayout->getBlock('magentoese_instorepickup_storedetails');
