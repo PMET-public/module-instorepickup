@@ -211,6 +211,10 @@ define([
             $(this.options.storeDropdownSelector).empty();
             $(this.options.storeDropdownSelector).append(response.storeDetailHtml);
 
+            // Update product detail page with store details
+            $(this.options.productInfoInstorepickupSelector).empty();
+            $(this.options.productInfoInstorepickupSelector).append(response.productInfoInstorepickupOptions);
+
             // Rebind any store change elements after injecting new HTML
             this._bindForStoreChange();
 

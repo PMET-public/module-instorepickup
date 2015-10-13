@@ -81,7 +81,18 @@ class Selection extends Action
                 $detailBlock = $detailLayout->getBlock('magentoese_instorepickup_storedetails');
                 $response['storeDetailHtml'] = $detailBlock->toHtml();
             } catch (\Exception $e) {
-                $this->messageManager->addExceptionMessage($e, __('Error getting store location details.'));
+                $this->messageManager->addExceptionMessage($e, __('Error getting store location details for navigation dropdown.'));
+            }
+
+            // Get HTML to update store pdp detail
+            try {
+                /** @var \Magento\Framework\View\Result\Page $detailResult */
+                $pdpResult = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+                $pdpLayout = $pdpResult->addHandle('catalog_product_view')->getLayout();
+                $pdpBlock = $pdpLayout->getBlock('product.info.instorepickup.options');
+                $response['productInfoInstorepickupOptions'] = $pdpBlock->toHtml();
+            } catch (\Exception $e) {
+                $this->messageManager->addExceptionMessage($e, __('Error getting store location details for product details.'));
             }
         }
 
