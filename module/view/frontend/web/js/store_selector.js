@@ -24,7 +24,9 @@ define([
             storeSearchInputSelector: "#store-search",
             storeSearchTriggerSelector: ".instorepickup-search-trigger",
             storeChangeTriggerSelector: ".instorepickup-change-trigger",
-            storeDropdownSelector: ".instorepickup-dropdown"
+            storeDropdownSelector: ".instorepickup-dropdown",
+            selectedStore: "instorepickup-selected-store",
+            productInfoInstorepickupSelector: ".instorepickup-pdp-wrapper"
         },
 
         /**
@@ -49,6 +51,10 @@ define([
                     self._onSearch();
                 }
             });
+
+            // Watch for content updates from private data load and rebind content
+            $(this.options.storeDropdownSelector).on('contentUpdated', $.proxy(this._bindForStoreChange, this));
+            $(this.options.productInfoInstorepickupSelector).on('contentUpdated', $.proxy(this._bindForStoreChange, this));
         },
 
         /** Create popUp window for provided element */
@@ -76,7 +82,7 @@ define([
          * Respond to Navigation click event
          */
         _onNavClick: function() {
-            if (this.options.hasStoreBeenChosen == false) {
+            if (!$(this.options.storeSearchTriggerSelector).find('strong span').is('#'+this.options.selectedStore)) {
 
                 // close the dropdown menu if it was open
                 // reference: http://stackoverflow.com/questions/8506621/accessing-widget-instance-from-outside-widget
@@ -199,6 +205,7 @@ define([
 
             // Update page navigation with the chosen store
             $(this.options.storeNavSelector+' strong span').text($.mage.__('My Store: ') + response.storeName);
+            $(this.options.storeNavSelector+' strong span').attr('id', this.options.selectedStore);
 
             // Update page store location dropdown with store details
             $(this.options.storeDropdownSelector).empty();
