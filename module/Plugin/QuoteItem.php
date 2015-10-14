@@ -21,10 +21,15 @@ class QuoteItem
         \Magento\Quote\Model\Quote\Item\AbstractItem $item,
         $additional = []
     ) {
-        /** @var $orderItem Item */
+        /** @var $orderItem \Magento\Sales\Model\Order\Item */
         $orderItem = $proceed($item, $additional);
 
-        $orderItem->setInstorepickupAddtocartMethod($item->getInstorepickupAddtocartMethod());
+        $addtocartMethod = $item->getInstorepickupAddtocartMethod();
+        if ($item instanceof \Magento\Quote\Model\Quote\Address\Item) {
+            $addtocartMethod = $item->getQuoteItem()->getInstorepickupAddtocartMethod();
+        }
+
+        $orderItem->setInstorepickupAddtocartMethod($addtocartMethod);
 
         return $orderItem;
     }

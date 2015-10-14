@@ -88,16 +88,6 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     'comment' => 'In-Store Pickup Add To Cart Method'
                 ]
             );
-            $setup->getConnection()->addColumn(
-                $setup->getTable('quote_address_item'),
-                'instorepickup_addtocart_method',
-                [
-                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                    'length' => 32,
-                    'nullable' => true,
-                    'comment' => 'In-Store Pickup Add To Cart Method'
-                ]
-            );
         }
 
         $setup->endSetup();
