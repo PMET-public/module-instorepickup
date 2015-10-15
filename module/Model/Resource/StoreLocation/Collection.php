@@ -5,7 +5,15 @@
  */
 namespace MagentoEse\InStorePickup\Model\Resource\StoreLocation;
 
-class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
+use Magento\Framework\Model\Resource\Db\Collection\AbstractCollection;
+use Magento\Framework\Data\Collection\EntityFactory;
+use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
+use Magento\Framework\Event\ManagerInterface;
+use MagentoEse\InStorePickup\Model\Resource\ZipcodeLocationFactory;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\Model\Resource\Db\AbstractDb;
+
+class Collection extends AbstractCollection
 {
 
     /**
@@ -24,27 +32,27 @@ class Collection extends \Magento\Framework\Model\Resource\Db\Collection\Abstrac
     const EARTH_RADIUS_IN_KILOMETERS = 6371;
 
     /**
-     * @var \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocationFactory
+     * @var ZipcodeLocationFactory
      */
     private $zipLocFactory;
 
     /**
-     * @param \Magento\Framework\Data\Collection\EntityFactory $entityFactory
+     * @param EntityFactory $entityFactory
      * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Framework\Event\ManagerInterface $eventManager
-     * @param \Magento\Sales\Model\Resource\Report $resource
-     * @param \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocationFactory $zipLocFactory
-     * @param mixed $connection
+     * @param FetchStrategyInterface $fetchStrategy
+     * @param ManagerInterface $eventManager
+     * @param ZipcodeLocationFactory $zipLocFactory
+     * @param AdapterInterface $connection
+     * @param AbstractDb $resource
      */
     public function __construct(
-        \Magento\Framework\Data\Collection\EntityFactory $entityFactory,
+        EntityFactory $entityFactory,
         \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocationFactory $zipLocFactory,
-        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
-        \Magento\Sales\Model\Resource\Report $resource = null
+        FetchStrategyInterface $fetchStrategy,
+        ManagerInterface $eventManager,
+        ZipcodeLocationFactory $zipLocFactory,
+        AdapterInterface $connection = null,
+        AbstractDb $resource = null
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
 
@@ -95,6 +103,7 @@ class Collection extends \Magento\Framework\Model\Resource\Db\Collection\Abstrac
      */
     public function addZipcodeDistanceFilter($zipcode, $distance = 50)
     {
+        /** @var $zipLoc \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocation */
         $zipLoc = $this->zipLocFactory->create();
         $geomPointText = $zipLoc->getGeomPointTextByZipcode($zipcode);
 

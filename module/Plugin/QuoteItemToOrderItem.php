@@ -3,22 +3,23 @@
 namespace MagentoEse\InStorePickup\Plugin;
 
 use Closure;
+use Magento\Quote\Model\Quote\Item\ToOrderItem;
 use Magento\Sales\Model\Order\Item;
+use Magento\Quote\Model\Quote\Item\AbstractItem;
 
-class QuoteItem
+class QuoteItemToOrderItem
 {
     /**
-     * @param \Magento\Quote\Model\Quote\Item\ToOrderItem $subject
-     * @param callable $proceed
-     * @param \Magento\Quote\Model\Quote\Item\AbstractItem $item
+     * @param ToOrderItem $subject
+     * @param Closure $proceed
+     * @param AbstractItem $item
      * @param array $additional
      * @return Item
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundConvert(
-        \Magento\Quote\Model\Quote\Item\ToOrderItem $subject,
+        ToOrderItem $subject,
         Closure $proceed,
-        \Magento\Quote\Model\Quote\Item\AbstractItem $item,
+        AbstractItem $item,
         $additional = []
     ) {
         /** @var $orderItem \Magento\Sales\Model\Order\Item */

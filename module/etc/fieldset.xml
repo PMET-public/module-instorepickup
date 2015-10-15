@@ -15,5 +15,13 @@
                 <aspect name="to_cm_item" />
             </field>
         </fieldset>
+        <fieldset id="sales_convert_quote">
+            <field name="has_instorepickup_fulfillment">
+                <aspect name="to_order" />
+            </field>
+            <field name="instorepickup_store_location_id">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
     </scope>
 </config>

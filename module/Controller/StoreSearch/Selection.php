@@ -86,7 +86,7 @@ class Selection extends Action
 
             // Get HTML to update store pdp detail
             try {
-                /** @var \Magento\Framework\View\Result\Page $detailResult */
+                /** @var \Magento\Framework\View\Result\Page $pdpResult */
                 $pdpResult = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
                 $pdpLayout = $pdpResult->addHandle('catalog_product_view')->getLayout();
                 $pdpBlock = $pdpLayout->getBlock('product.info.instorepickup.options');

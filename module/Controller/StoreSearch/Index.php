@@ -57,6 +57,7 @@ class Index extends Action
         $zipcode = $params['searchCriteria'];
 
         // Initialize the store location collection
+        /** @var $storeLocCol \MagentoEse\InStorePickup\Model\Resource\StoreLocation\Collection */
         $storeLocCol = $this->storeLocColFactory->create();
         $storeLocCol->addZipcodeDistanceFilter($zipcode, $this::DISTANCE);
         $storeLocCol->setPageSize($this::LIMIT_RESULTS);

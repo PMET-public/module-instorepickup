@@ -2,13 +2,13 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="root">
-            <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="magentoese_instorepickup_storeselector" after="page.wrapper" template="store_selector.phtml"/>
+            <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="magentoese_instorepickup_storeselector" after="page.wrapper" template="MagentoEse_InStorePickup::store_selector.phtml"/>
         </referenceContainer>
         <referenceBlock name="top.links">
-            <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="instorepickup_nav" before="-" template="store_nav.phtml">
-                <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_nav_label" template="store_nav_label.phtml"/>
-                <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_nav_dropdown" template="store_nav_dropdown.phtml">
-                    <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_storedetails" template="store_details.phtml"/>
+            <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="instorepickup_nav" before="-" template="MagentoEse_InStorePickup::store_nav.phtml">
+                <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_nav_label" template="MagentoEse_InStorePickup::store_nav_label.phtml"/>
+                <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_nav_dropdown" template="MagentoEse_InStorePickup::store_nav_dropdown.phtml">
+                    <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_storedetails" template="MagentoEse_InStorePickup::store_details.phtml"/>
                 </block>
             </block>
         </referenceBlock>

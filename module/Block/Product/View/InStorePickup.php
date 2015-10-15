@@ -2,12 +2,15 @@
 
 namespace MagentoEse\InStorePickup\Block\Product\View;
 
+use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Framework\View\Element\Template;
+use Magento\Catalog\Model\Product;
 
 /**
  * In Store Pickup block for Product View pages
  */
-class InStorePickup extends \Magento\Framework\View\Element\Template
+class InStorePickup extends Template
 {
     /**
      * Core registry
@@ -27,7 +30,7 @@ class InStorePickup extends \Magento\Framework\View\Element\Template
      * @param array $data
      */
     public function __construct(
-        \Magento\Catalog\Block\Product\Context $context,
+        Context $context,
         ProductRepositoryInterface $productRepository,
         array $data = []
     ) {
@@ -71,7 +74,7 @@ class InStorePickup extends \Magento\Framework\View\Element\Template
      * @param string $attributeCode
      * @return string|array
      */
-    private function getDefaultAttributeText(\Magento\Catalog\Model\Product $product, $attributeCode)
+    private function getDefaultAttributeText(Product $product, $attributeCode)
     {
         $value = $product->getData($attributeCode);
 

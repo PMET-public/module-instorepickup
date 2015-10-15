@@ -1,15 +1,18 @@
 <?php
-/**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace MagentoEse\InStorePickup\Model\Session;
 
+use Magento\Framework\Session;
+use MagentoEse\InStorePickup\Model\StoreLocationFactory;
+use Magento\Framework\Stdlib\CookieManagerInterface;
+use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
+use Magento\Framework\App\State;
+use Magento\Framework\App\Request\Http;
+
 /**
- * Customer session model
- * @method string getNoReferer()
+ * Store Location session model
  */
-class StoreLocation extends \Magento\Framework\Session\SessionManager
+class StoreLocation extends Session\SessionManager
 {
     /**
      * The property name associated with the storage of Store Location session data
@@ -17,12 +20,12 @@ class StoreLocation extends \Magento\Framework\Session\SessionManager
     const SESSION_PROPERTY_NAME = 'store_location';
 
     /**
-     * @var \Magento\Framework\Session\Generic
+     * @var Session\Generic
      */
     protected $session;
 
     /**
-     * @var \MagentoEse\InStorePickup\Model\StoreLocationFactory
+     * @var StoreLocationFactory
      */
     protected $storeLocationFactory;
 
@@ -32,29 +35,30 @@ class StoreLocation extends \Magento\Framework\Session\SessionManager
     protected $storeLocation;
 
     /**
-     * @param \Magento\Framework\App\Request\Http $request
-     * @param \Magento\Framework\Session\SidResolverInterface $sidResolver
-     * @param \Magento\Framework\Session\Config\ConfigInterface $sessionConfig
-     * @param \Magento\Framework\Session\SaveHandlerInterface $saveHandler
-     * @param \Magento\Framework\Session\ValidatorInterface $validator
-     * @param \Magento\Framework\Session\StorageInterface $storage
-     * @param \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager
-     * @param \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadataFactory
+     * @param Http $request
+     * @param Session\SidResolverInterface $sidResolver
+     * @param Session\Config\ConfigInterface $sessionConfig
+     * @param Session\SaveHandlerInterface $saveHandler
+     * @param Session\ValidatorInterface $validator
+     * @param Session\StorageInterface $storage
+     * @param CookieManagerInterface $cookieManager
+     * @param CookieMetadataFactory $cookieMetadataFactory
      * @param \Magento\Framework\App\State $appState
-     * @param \Magento\Framework\Session\Generic $session
+     * @param Session\Generic $session
+     * @param StoreLocationFactory $storeLocationFactory
      */
     public function __construct(
-        \Magento\Framework\App\Request\Http $request,
-        \Magento\Framework\Session\SidResolverInterface $sidResolver,
-        \Magento\Framework\Session\Config\ConfigInterface $sessionConfig,
-        \Magento\Framework\Session\SaveHandlerInterface $saveHandler,
-        \Magento\Framework\Session\ValidatorInterface $validator,
-        \Magento\Framework\Session\StorageInterface $storage,
-        \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager,
-        \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadataFactory,
-        \Magento\Framework\App\State $appState,
-        \Magento\Framework\Session\Generic $session,
-        \MagentoEse\InStorePickup\Model\StoreLocationFactory $storeLocationFactory
+        Http $request,
+        Session\SidResolverInterface $sidResolver,
+        Session\Config\ConfigInterface $sessionConfig,
+        Session\SaveHandlerInterface $saveHandler,
+        Session\ValidatorInterface $validator,
+        Session\StorageInterface $storage,
+        CookieManagerInterface $cookieManager,
+        CookieMetadataFactory $cookieMetadataFactory,
+        State $appState,
+        Session\Generic $session,
+        StoreLocationFactory $storeLocationFactory
     ) {
         $this->session = $session;
         $this->storeLocationFactory = $storeLocationFactory;

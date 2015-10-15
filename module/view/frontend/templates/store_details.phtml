@@ -5,7 +5,7 @@
 $storeLocation = $block->getChosenStoreLocation();
 ?>
 <h3><?php echo __('My Local Stores') ?></h3>
-<h4><?php echo $storeLocation->getName(); ?> <span class="action instorepickup-change-trigger"><?php echo __('Change') ?></span> <a href="<?php echo $block->getDirectionsUrl($storeLocation); ?>" target="_blank" class="instorepickup-getdirections"><?php echo __('Get Directions') ?></a></h4>
+<h4><?php echo $storeLocation->getName(); ?> <span class="action instorepickup-change-trigger"><?php echo __('Change') ?></span> <a href="<?php echo $block->getDirectionsUrl(); ?>" target="_blank" class="instorepickup-getdirections"><?php echo __('Get Directions') ?></a></h4>
 <address><?php echo $storeLocation->getStreetAddress(); ?><br><?php echo $storeLocation->getCity(); ?>, <?php echo $storeLocation->getState(); ?> <?php echo $storeLocation->getPostalCode(); ?><br><?php echo $storeLocation->getPhone(); ?></address>
 
 <?php /* include static block here */ ?>

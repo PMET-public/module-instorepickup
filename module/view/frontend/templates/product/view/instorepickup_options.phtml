@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $block \MagentoEse\InStorePickup\Block\StoreSelector
+ * @var $block \MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate
  */
 ?>
 <?php
@@ -32,6 +32,6 @@ $storeLocation = $block->getChosenStoreLocation();
     </div>
 
 <?php else: ?>
-    <span class="instorepickup-search-trigger"><?php echo __('Check in-store availability') ?></span></a>
+    <span class="instorepickup-change-trigger"><?php echo __('Check in-store availability') ?></span>
 <?php endif; ?>
 

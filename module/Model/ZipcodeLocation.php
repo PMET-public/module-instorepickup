@@ -2,7 +2,9 @@
 
 namespace MagentoEse\InStorePickup\Model;
 
-class ZipcodeLocation extends \Magento\Framework\Model\AbstractModel
+use Magento\Framework\Model\AbstractModel;
+
+class ZipcodeLocation extends AbstractModel
 {
     /**
      * Initialize resource model

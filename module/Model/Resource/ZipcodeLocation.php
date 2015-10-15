@@ -2,7 +2,9 @@
 
 namespace MagentoEse\InStorePickup\Model\Resource;
 
-class ZipcodeLocation extends \Magento\Framework\Model\Resource\Db\AbstractDb
+use Magento\Framework\Model\Resource\Db\AbstractDb;
+
+class ZipcodeLocation extends AbstractDb
 {
     /**
      * database column name for geometic point location as text

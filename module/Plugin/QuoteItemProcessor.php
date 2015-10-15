@@ -1,26 +1,30 @@
 <?php
 
-namespace MagentoEse\InStorePickup\Plugin\Magento\Quote\Model\Quote\Item;
+namespace MagentoEse\InStorePickup\Plugin;
+
+use Magento\Quote\Model\Quote\Item;
+use Magento\Quote\Model\Quote\Item\Processor;
+use Magento\Catalog\Model\Product;
 
 /**
  * Plugin for adding data to the quote item
  */
-class Processor
+class QuoteItemProcessor
 {
 
     /**
      * Setup product for quote item
      *
-     * @param \Magento\Quote\Model\Quote\Item\Processor $subject
-     * @param callable $proceed
-     * @param \Magento\Catalog\Model\Product $product
+     * @param Processor $subject
+     * @param \Closure $proceed
+     * @param Product $product
      * @param \Magento\Framework\DataObject $request
-     * @return \Magento\Quote\Model\Quote\Item
+     * @return Item
      */
     public function aroundInit(
-        \Magento\Quote\Model\Quote\Item\Processor $subject,
+        Processor $subject,
         \Closure $proceed,
-        \Magento\Catalog\Model\Product $product,
+        Product $product,
         $request
     ) {
         // Let the original class execute
