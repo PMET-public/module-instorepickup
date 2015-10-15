@@ -9,9 +9,17 @@ use Magento\Framework\Json\Helper\Data;
 use Magento\Framework\Controller\ResultFactory;
 use MagentoEse\InStorePickup\Model\StoreLocationFactory;
 use MagentoEse\InStorePickup\Model\Session;
+use Magento\Checkout\Model\Session as CheckoutSession;
 
 class Selection extends Action
 {
+    /**
+     * Checkout session
+     *
+     * @var \Magento\Checkout\Model\Session
+     */
+    protected $checkoutSession;
+
     /**
      * @var Data
      */
@@ -36,16 +44,19 @@ class Selection extends Action
      * @param Data $jsonHelper
      * @param StoreLocationFactory $storeLocationFactory
      * @param Session\StoreLocation $storeLocationSession
+     * @param CheckoutSession $checkoutSession
      */
     public function __construct(
         Context $context,
         Data $jsonHelper,
         StoreLocationFactory $storeLocationFactory,
-        Session\StoreLocation $storeLocationSession
+        Session\StoreLocation $storeLocationSession,
+        CheckoutSession $checkoutSession
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->storeLocationFactory = $storeLocationFactory;
         $this->storeLocationSession = $storeLocationSession;
+        $this->checkoutSession = $checkoutSession;
         parent::__construct($context);
     }
 
@@ -69,6 +80,12 @@ class Selection extends Action
 
             // Save the Store Location selection to the session
             $this->storeLocationSession->setStoreLocation($storeLocation);
+
+            // Check if we need to update the StoreLocationId in the Quote
+            if ($this->checkoutSession->getQuote() && $this->checkoutSession->getQuote()->getInstorepickupStoreLocationId() > 0) {
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationId($storeLocation->getId());
+                $this->checkoutSession->getQuote()->save();
+            }
 
             // respond with selected store details
             $response['storeName'] = $storeLocation->getName();
