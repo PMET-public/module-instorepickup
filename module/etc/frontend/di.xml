@@ -3,4 +3,7 @@
     <type name="Magento\Multishipping\Block\Checkout\Link">
         <plugin name="instorepickup_cart_multishipping_link" type="MagentoEse\InStorePickup\Block\Plugin\CartMultishippingLink"/>
     </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer">
+        <plugin name="instorepickup_cart_item_renderer" type="MagentoEse\InStorePickup\Block\Plugin\CartItemRenderer"/>
+    </type>
 </config>
