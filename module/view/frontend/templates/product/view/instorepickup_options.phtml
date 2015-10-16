@@ -8,13 +8,14 @@
 $storeLocation = $block->getChosenStoreLocation();
 ?>
 <?php if($block->hasStoreBeenChosen()): ?>
-    <span><?php echo __('Availability') ?></span>
-    <p><?php echo __('In Store') ?></p>
+    <p class="availability-label">
+        <?php echo __('Availability') ?>:
+        <span class="availability-result"><?php echo __('In Store') ?></span>
+    </p>
 
+    <p><?php echo __('My Store') ?>: <?php echo $storeLocation->getName() ?></p>
 
-    <span><?php echo __('My Store') ?>: <?php echo $storeLocation->getName() ?></span>
-
-    <div class="addtocart-mode">
+    <div class="addtocart-mode" data-mage-init='{"inStorePickupProduct":{}}'>
         <ul class="form-list">
             <li class="control selected-radio">
                 <input type="radio" class="radio" checked="checked" value="ship-to-home" id="ship-to-home" name="instorepickup_addtocart_method">
@@ -22,12 +23,17 @@ $storeLocation = $block->getChosenStoreLocation();
             </li>
             <li class="control">
                 <input type="radio" class="radio" value="pick-up" id="pick-up" name="instorepickup_addtocart_method">
-                <label for="pick-up">Pick up in your local store<span>Available for pickup <b>TODAY</b></span></label>
+                <label for="pick-up">
+                    <div>Pick up in your local store</div>
+                    <div>Available for pickup <b>TODAY</b></div>
+                </label>
             </li>
         </ul>
         <span class="label">
-            <label><b><?php echo $storeLocation->getName(); ?></b> <span class="action instorepickup-change-trigger"><?php echo __('Change') ?></span></label>
-            <address><?php echo $storeLocation->getStreetAddress(); ?><br><?php echo $storeLocation->getCity(); ?>, <?php echo $storeLocation->getState(); ?> <?php echo $storeLocation->getPostalCode(); ?><br><?php echo $storeLocation->getPhone(); ?></address>
+            <div>
+                <label><b><?php echo $storeLocation->getName(); ?></b> <span class="action instorepickup-change-trigger"><?php echo __('Change') ?></span></label>
+                <address><?php echo $storeLocation->getStreetAddress(); ?><br><?php echo $storeLocation->getCity(); ?>, <?php echo $storeLocation->getState(); ?> <?php echo $storeLocation->getPostalCode(); ?><br><?php echo $storeLocation->getPhone(); ?></address>
+            </div>
         </span>
     </div>
 

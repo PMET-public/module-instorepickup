@@ -6,8 +6,11 @@
 <?php if ($block->isAvailableInStore()): ?>
     <?php echo $block->getChildHtml('product.info.instorepickup.options') ?>
 <?php else: ?>
-    <span><?php echo __('Availability') ?></span>
-    <p><?php echo $block->getAvailabilityText() ?></p>
+    <span class="availability-label">
+        <?php echo __('Availability') ?>:
+        <span class="availability-result"><?php echo $block->getAvailabilityText() ?></span>
+    </span>
+
 <?php endif; ?>
 </div>
 
