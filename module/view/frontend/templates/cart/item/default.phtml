@@ -67,6 +67,17 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         </div>
     </td>
 
+    <td class="col instorepickup-delivery-method" data-th="<?php echo $block->escapeHtml(__('Delivery Method'));?>">
+        <?php if ($_item->getInstorepickupAddtocartMethod() == 'pick-up'): ?>
+            <h5><?php echo __('IN-STORE PICKUP') ?></h5>
+            <p><?php echo $_item->getQuote()->getInstorepickupStoreLocationName(); ?></p>
+            <p><?php echo $_item->getQuote()->getInstorepickupStoreLocationCity(); ?>, <?php echo $_item->getQuote()->getInstorepickupStoreLocationState(); ?> <?php echo $_item->getQuote()->getInstorepickupStoreLocationPostalCode(); ?></p>
+            <p>Phone: <?php echo $_item->getQuote()->getInstorepickupStoreLocationPhone(); ?></p>
+        <?php else: ?>
+            <h5><?php echo __('SHIP TO HOME') ?></h5>
+        <?php endif; ?>
+    </td>
+
     <?php if ($canApplyMsrp): ?>
         <td class="col msrp" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">
                 <span class="pricing msrp">
@@ -108,16 +119,6 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <span class="cart msrp subtotal">--</span>
         <?php else: ?>
             <?php echo $block->getRowTotalHtml($_item); ?>
-        <?php endif; ?>
-    </td>
-    <td class="col instorepickup-delivery-method" data-th="<?php echo $block->escapeHtml(__('Delivery Method'));?>">
-        <?php if ($_item->getInstorepickupAddtocartMethod() == 'pick-up'): ?>
-            <h5><?php echo __('IN-STORE PICKUP') ?></h5>
-            <p><?php echo $_item->getQuote()->getInstorepickupStoreLocationName(); ?></p>
-            <p><?php echo $_item->getQuote()->getInstorepickupStoreLocationCity(); ?>, <?php echo $_item->getQuote()->getInstorepickupStoreLocationState(); ?> <?php echo $_item->getQuote()->getInstorepickupStoreLocationPostalCode(); ?></p>
-            <p>Phone: <?php echo $_item->getQuote()->getInstorepickupStoreLocationPhone(); ?></p>
-        <?php else: ?>
-            <h5><?php echo __('SHIP TO HOME') ?></h5>
         <?php endif; ?>
     </td>
 </tr>
