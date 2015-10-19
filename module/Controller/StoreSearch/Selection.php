@@ -84,6 +84,11 @@ class Selection extends Action
             // Check if we need to update the StoreLocationId in the Quote
             if ($this->checkoutSession->getQuote() && $this->checkoutSession->getQuote()->getInstorepickupStoreLocationId() > 0) {
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationId($storeLocation->getId());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationName($storeLocation->getName());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationCity($storeLocation->getCity());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationState($storeLocation->getState());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPostalCode($storeLocation->getPostalCode());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPhone($storeLocation->getPhone());
                 $this->checkoutSession->getQuote()->save();
             }
 

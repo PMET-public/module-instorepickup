@@ -146,6 +146,114 @@ class UpgradeSchema implements UpgradeSchemaInterface
             );
         }
 
+        if (version_compare($context->getVersion(), '0.1.4', '<')) {
+
+            // Logging
+            $this->_logger->info('MagentoEse_InStorePickup Schema Upgrade to 0.1.4');
+
+            // Add column to quote/order defining the store_location (name, city, state, zip, phone) of the selected store for in-store pickup
+            $setup->getConnection()->addColumn(
+                $setup->getTable('quote'),
+                'instorepickup_store_location_name',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 255,
+                    'nullable' => true,
+                    'comment' => 'Store Location Name for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('sales_order'),
+                'instorepickup_store_location_name',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 255,
+                    'nullable' => true,
+                    'comment' => 'Store Location Name for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('quote'),
+                'instorepickup_store_location_city',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 255,
+                    'nullable' => true,
+                    'comment' => 'Store Location City for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('sales_order'),
+                'instorepickup_store_location_city',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 255,
+                    'nullable' => true,
+                    'comment' => 'Store Location City for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('quote'),
+                'instorepickup_store_location_state',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 5,
+                    'nullable' => true,
+                    'comment' => 'Store Location State for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('sales_order'),
+                'instorepickup_store_location_state',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 5,
+                    'nullable' => true,
+                    'comment' => 'Store Location State for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('quote'),
+                'instorepickup_store_location_postal_code',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 5,
+                    'nullable' => true,
+                    'comment' => 'Store Location Postal Code for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('sales_order'),
+                'instorepickup_store_location_postal_code',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 5,
+                    'nullable' => true,
+                    'comment' => 'Store Location Postal Code for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('quote'),
+                'instorepickup_store_location_phone',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 255,
+                    'nullable' => true,
+                    'comment' => 'Store Location Phone for In-Store Pickup'
+                ]
+            );
+            $setup->getConnection()->addColumn(
+                $setup->getTable('sales_order'),
+                'instorepickup_store_location_phone',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                    'length' => 255,
+                    'nullable' => true,
+                    'comment' => 'Store Location Phone for In-Store Pickup'
+                ]
+            );
+        }
+
         $setup->endSetup();
     }
 }

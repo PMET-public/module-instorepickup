@@ -28,7 +28,7 @@
                 <th class="col price" scope="col"><span><?php /* @escapeNotVerified */ echo __('Price') ?></span></th>
                 <th class="col qty" scope="col"><span><?php /* @escapeNotVerified */ echo __('Qty') ?></span></th>
                 <th class="col subtotal" scope="col"><span><?php /* @escapeNotVerified */ echo __('Subtotal') ?></span></th>
-                <th class="col delivery-method" scope="col"><span><?php /* @escapeNotVerified */ echo __('Delivery Method') ?></span></th>
+                <th class="col instorepickup-delivery-method" scope="col"><span><?php /* @escapeNotVerified */ echo __('Delivery Method') ?></span></th>
             </tr>
             </thead>
             <?php foreach ($block->getItems() as $_item): ?>
@@ -65,4 +65,3 @@
 </form>
 <?php echo $block->getChildHtml('checkout.cart.order.actions') ?>
 <?php echo $block->getChildHtml('shopping.cart.table.after'); ?>
-

@@ -18,6 +18,11 @@ class Observer
     {
         $observer->getEvent()->getOrder()->setHasInstorepickupFulfillment($observer->getEvent()->getQuote()->getHasInstorepickupFulfillment());
         $observer->getEvent()->getOrder()->setInstorepickupStoreLocationId($observer->getEvent()->getQuote()->getInstorepickupStoreLocationId());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationName($observer->getEvent()->getQuote()->getInstorepickupStoreLocationName());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationCity($observer->getEvent()->getQuote()->getInstorepickupStoreLocationCity());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationState($observer->getEvent()->getQuote()->getInstorepickupStoreLocationState());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationPostalCode($observer->getEvent()->getQuote()->getInstorepickupStoreLocationPostalCode());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationPhone($observer->getEvent()->getQuote()->getInstorepickupStoreLocationPhone());
         return $this;
     }
 
@@ -31,6 +36,11 @@ class Observer
     {
         $observer->getEvent()->getOrder()->setHasInstorepickupFulfillment($observer->getEvent()->getQuote()->getHasInstorepickupFulfillment());
         $observer->getEvent()->getOrder()->setInstorepickupStoreLocationId($observer->getEvent()->getQuote()->getInstorepickupStoreLocationId());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationName($observer->getEvent()->getQuote()->getInstorepickupStoreLocationName());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationCity($observer->getEvent()->getQuote()->getInstorepickupStoreLocationCity());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationState($observer->getEvent()->getQuote()->getInstorepickupStoreLocationState());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationPostalCode($observer->getEvent()->getQuote()->getInstorepickupStoreLocationPostalCode());
+        $observer->getEvent()->getOrder()->setInstorepickupStoreLocationPhone($observer->getEvent()->getQuote()->getInstorepickupStoreLocationPhone());
         return $this;
     }
 }

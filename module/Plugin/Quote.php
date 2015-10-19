@@ -41,8 +41,12 @@ class Quote
         // Set some quote attribute to flag the existance of in store pickup items and the store location id used
         if ($item->getInstorepickupAddtocartMethod() == 'pick-up') {
             $quote->setHasInstorepickupFulfillment(1);
-            $storeLocationId = $this->storeLocationSession->getStoreLocation()->getId();
-            $quote->setInstorepickupStoreLocationId($storeLocationId);
+            $quote->setInstorepickupStoreLocationId($this->storeLocationSession->getStoreLocation()->getId());
+            $quote->setInstorepickupStoreLocationName($this->storeLocationSession->getStoreLocation()->getName());
+            $quote->setInstorepickupStoreLocationCity($this->storeLocationSession->getStoreLocation()->getCity());
+            $quote->setInstorepickupStoreLocationState($this->storeLocationSession->getStoreLocation()->getState());
+            $quote->setInstorepickupStoreLocationPostalCode($this->storeLocationSession->getStoreLocation()->getPostalCode());
+            $quote->setInstorepickupStoreLocationPhone($this->storeLocationSession->getStoreLocation()->getPhone());
         }
 
         return $quote;
@@ -105,6 +109,11 @@ class Quote
         if ($foundInstorepickupItem == false) {
             $result->setHasInstorepickupFulfillment(0);
             $result->setInstorepickupStoreLocationId(0);
+            $result->setInstorepickupStoreLocationName(null);
+            $result->setInstorepickupStoreLocationCity(null);
+            $result->setInstorepickupStoreLocationState(null);
+            $result->setInstorepickupStoreLocationPostalCode(null);
+            $result->setInstorepickupStoreLocationPhone(null);
         }
 
         return $result;
