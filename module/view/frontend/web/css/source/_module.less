@@ -299,7 +299,26 @@
 }
 
 @mobile-cart-padding: 15px;
-@screen__m_cart: 915px;
+@screen__m_cart: 980px;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .cart {
+        &.table-wrapper {
+            thead {
+                .col {
+                    &.instorepickup-delivery-method {
+                        min-width: 120px; // prevent column header from wrapping
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
 
 //
 //  Mobile
@@ -324,7 +343,7 @@
     }
 }
 
-// Medium Width Break
+// Medium Width Break to prevent column crowding
 @media only screen and (max-width: (@screen__m_cart - 1)) {
 
     //  Products table
