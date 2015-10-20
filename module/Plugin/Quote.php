@@ -118,4 +118,31 @@ class Quote
 
         return $result;
     }
+
+    /**
+     * @param \Magento\Quote\Model\Quote $subject
+     * @param $result
+     * @return bool
+     */
+    public function afterIsVirtual(
+        \Magento\Quote\Model\Quote $subject,
+        $result
+    ) {
+        // If it has already been determined that this is a virtual order there is no additional evaluation needed
+        if ($result == true) {
+            return $result;
+        }
+
+        // If a quote contains only in store pickup items it should be treated as virtual
+        // Loop through all items to check if any items are not in store pickup items
+        $containsOnlyInStorePickupItems = true;
+        foreach ($subject->getAllVisibleItems() as $item)
+        {
+            if ($item->getInstorepickupAddtocartMethod() != 'pick-up') {
+                $containsOnlyInStorePickupItems = false;
+            }
+        }
+
+        return $containsOnlyInStorePickupItems;
+    }
 }
