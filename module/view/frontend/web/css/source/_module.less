@@ -283,15 +283,89 @@
     }
 }
 
+// Cart Page
 #shopping-cart-table .instorepickup-delivery-method{
     h5 {
         margin: 0;
         margin-bottom: 10px;
-        font-size: 13px;
-        line-height: 1.4;
+        font-weight: 700;
+        font-size: 1.4rem;
+        line-height: 1.42857143;
     }
     p {
         margin: 0;
         font-size: 12px;
+    }
+}
+
+@mobile-cart-padding: 15px;
+@screen__m_cart: 915px;
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    .cart {
+        .table.items {
+            .col.instorepickup-delivery-method {
+                &:extend(.abs-col-no-prefix all);
+            }
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .cart {
+        .table.items {
+            .col.instorepickup-delivery-method {
+                padding: 0px @mobile-cart-padding @indent__s 90px;
+            }
+        }
+    }
+}
+
+// Medium Width Break
+@media only screen and (max-width: (@screen__m_cart - 1)) {
+
+    //  Products table
+    .cart {
+        &.table-wrapper {
+            thead {
+                .col {
+                    &.instorepickup-delivery-method  {
+                        display: none;
+                    }
+                }
+            }
+            .item {
+                .col.instorepickup-delivery-method {
+                    display: block;
+                    min-height: 10px;
+                    padding: 0px @mobile-cart-padding @indent__s 185px;
+                    position: relative;
+                }
+                td.col.item {
+                    padding-bottom: 0px;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+
+    //  Products table
+    .cart {
+        &.table-wrapper {
+            .item {
+                .col.instorepickup-delivery-method {
+                    padding: @cart-item-cell-padding-top 8px @indent__base 0;
+                }
+            }
+        }
     }
 }
