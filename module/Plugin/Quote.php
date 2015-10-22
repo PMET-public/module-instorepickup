@@ -47,6 +47,7 @@ class Quote
             $quote->setInstorepickupStoreLocationState($this->storeLocationSession->getStoreLocation()->getState());
             $quote->setInstorepickupStoreLocationPostalCode($this->storeLocationSession->getStoreLocation()->getPostalCode());
             $quote->setInstorepickupStoreLocationPhone($this->storeLocationSession->getStoreLocation()->getPhone());
+            $quote->setInstorepickupStoreLocationStreet($this->storeLocationSession->getStoreLocation()->getStreetAddress());
         }
 
         return $quote;
@@ -114,6 +115,7 @@ class Quote
             $result->setInstorepickupStoreLocationState(null);
             $result->setInstorepickupStoreLocationPostalCode(null);
             $result->setInstorepickupStoreLocationPhone(null);
+            $result->setInstorepickupStoreLocationStreet(null);
         }
 
         return $result;

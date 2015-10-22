@@ -89,6 +89,7 @@ class Selection extends Action
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationState($storeLocation->getState());
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPostalCode($storeLocation->getPostalCode());
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPhone($storeLocation->getPhone());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationStreet($storeLocation->getStreetAddress());
                 $this->checkoutSession->getQuote()->save();
             }
 

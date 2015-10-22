@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Module/etc/module.xsd">
-    <module name="MagentoEse_InStorePickup" setup_version="0.1.4">
+    <module name="MagentoEse_InStorePickup" setup_version="0.1.5">
         <sequence>
             <module name="Magento_Catalog"/>
             <module name="Magento_Quote"/>
