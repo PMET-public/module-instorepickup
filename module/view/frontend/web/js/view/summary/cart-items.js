@@ -37,7 +37,9 @@ define(
                 var count = 0;
                 _.each(quote.getItems(), function (value) {
                     if (value.instorepickup_addtocart_method) {
-                        count += ((value.instorepickup_addtocart_method == instorepickupMethod) ? 1 : 0);
+                        if (value.instorepickup_addtocart_method == instorepickupMethod) {
+                            count += parseFloat(value.qty);
+                        }
                     }
                 });
                 return count;
@@ -46,9 +48,11 @@ define(
                 var count = 0;
                 _.each(quote.getItems(), function (value) {
                     if (value.instorepickup_addtocart_method) {
-                        count += ((value.instorepickup_addtocart_method != instorepickupMethod) ? 1 : 0);
+                        if (value.instorepickup_addtocart_method != instorepickupMethod) {
+                            count += parseFloat(value.qty);
+                        }
                     } else {
-                        count++;
+                        count += parseFloat(value.qty);
                     }
                 });
                 return count;

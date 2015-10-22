@@ -1,0 +1,9 @@
+<?php
+/**
+ * @var $block \MagentoEse\InStorePickup\Block\CheckoutOnepageSuccessInstorepickup
+ */
+?>
+
+<?php if ($block->orderContainedInstorepickupItems()): ?>
+    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('onepage_success_instorepickup')->toHtml();?>
+<?php endif; ?>

@@ -11,17 +11,6 @@ use Magento\Framework\View\Element\Template;
 class StoreSelector extends Template
 {
     /**
-     * @param Context $context
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        array $data = []
-    ) {
-        parent::__construct($context, $data);
-    }
-
-    /**
      * Retrieve form action url and set "secure" param to avoid confirm
      * message when we submit form from secure page to unsecure
      *
