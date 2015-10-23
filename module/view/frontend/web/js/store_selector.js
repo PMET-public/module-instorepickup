@@ -212,6 +212,10 @@ define([
             $(this.options.storeDropdownSelector).empty();
             $(this.options.storeDropdownSelector).append(response.storeDetailHtml);
 
+            // Capture any existing selection of pick up in store on a product detail page
+            var pickupInStoreSelected = false;
+            pickupInStoreSelected = $(this.options.productInfoInstorepickupSelector).find(':input[name=instorepickup_addtocart_method][value=pick-up]').is(':checked');
+
             // Update product detail page with store details
             $(this.options.productInfoInstorepickupSelector).empty();
             $(this.options.productInfoInstorepickupSelector).append(response.productInfoInstorepickupOptions);
@@ -219,6 +223,12 @@ define([
 
             // Rebind any store change elements after injecting new HTML
             this._bindForStoreChange();
+
+            // If a previously selected pick up in store existed on a product detail page, select it again after the data has been reloaded.
+            if (pickupInStoreSelected) {
+                $(this.options.productInfoInstorepickupSelector).find(':input[name=instorepickup_addtocart_method][value=pick-up]').prop('checked', true);
+                $(this.options.productInfoInstorepickupSelector).find(':input[name=instorepickup_addtocart_method][value=pick-up]').trigger('change');
+            }
 
             this.closePopup();
         }
