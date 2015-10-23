@@ -1,6 +1,6 @@
 <?php
 
-namespace MagentoEse\InStorePickup\Plugin;
+namespace MagentoEse\InStorePickup\Model\Plugin;
 
 use Closure;
 use Magento\Quote\Model\Quote\Item\ToOrderItem;

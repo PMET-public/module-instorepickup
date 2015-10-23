@@ -2,7 +2,6 @@
 
 namespace MagentoEse\InStorePickup\Block;
 
-use Magento\Framework\View\Element\Template\Context;
 use Magento\Framework\View\Element\Template;
 
 /**

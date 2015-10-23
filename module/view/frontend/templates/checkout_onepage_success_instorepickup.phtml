@@ -4,6 +4,8 @@
  */
 ?>
 
-<?php if ($block->orderContainedInstorepickupItems()): ?>
-    <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('onepage_success_instorepickup')->toHtml();?>
+<?php if ($this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()): ?>
+    <?php if ($block->orderContainedInstorepickupItems()): ?>
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('onepage_success_instorepickup')->toHtml();?>
+    <?php endif; ?>
 <?php endif; ?>

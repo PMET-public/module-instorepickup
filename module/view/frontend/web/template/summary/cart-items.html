@@ -28,6 +28,8 @@
             </div>
         </div>
     </div>
+    <!-- /ko -->
+    <!-- ko if: getNonInstorepickupItemsQty() > 0 -->
     <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
         <div class="title" data-role="title">
             <strong role="heading"><span data-bind="text: getNonInstorepickupItemsQty()"></span>

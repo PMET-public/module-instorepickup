@@ -67,6 +67,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         </div>
     </td>
 
+    <?php if ($this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()): ?>
     <td class="col instorepickup-delivery-method" data-th="<?php echo $block->escapeHtml(__('Delivery Method'));?>">
         <?php if ($_item->getInstorepickupAddtocartMethod() == 'pick-up'): ?>
             <h5><?php echo __('IN-STORE PICKUP') ?></h5>
@@ -77,6 +78,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <h5><?php echo __('SHIP TO HOME') ?></h5>
         <?php endif; ?>
     </td>
+    <?php endif;?>
 
     <?php if ($canApplyMsrp): ?>
         <td class="col msrp" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">

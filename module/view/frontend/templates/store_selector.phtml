@@ -4,24 +4,26 @@
  */
 ?>
 
-<div id="instorepickup-storeselector" data-mage-init='{
-        "magentoeseInStorePickupStoreSelector": {
-            "searchUrl": "<?php echo $block->getFormSearchActionUrl() ?>",
-            "selectionUrl": "<?php echo $block->getFormSelectionActionUrl() ?>"
-        }
-    }'>
-    <div class="input-box">
-        <fieldset class="fieldset" data-role="store-search">
-            <input id="store-search" type="text" name="search_query" value=""
-                   data-role="store-search-field"
-                   placeholder="<?php echo __('Enter your postal code') ?>"
-                   class="input-text"
-                   maxlength="5"
-                   data-validate="{'required':true, 'validate-zip-international':true}"/>
-        </fieldset>
-        <button class="action store-search" data-role="store-selector" title="<?php echo __('Search') ?>" type="submit">
-            <span><?php echo __('Search') ?></span>
-        </button>
+<?php if ($this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()): ?>
+    <div id="instorepickup-storeselector" data-mage-init='{
+            "magentoeseInStorePickupStoreSelector": {
+                "searchUrl": "<?php echo $block->getFormSearchActionUrl() ?>",
+                "selectionUrl": "<?php echo $block->getFormSelectionActionUrl() ?>"
+            }
+        }'>
+        <div class="input-box">
+            <fieldset class="fieldset" data-role="store-search">
+                <input id="store-search" type="text" name="search_query" value=""
+                       data-role="store-search-field"
+                       placeholder="<?php echo __('Enter your postal code') ?>"
+                       class="input-text"
+                       maxlength="5"
+                       data-validate="{'required':true, 'validate-zip-international':true}"/>
+            </fieldset>
+            <button class="action store-search" data-role="store-selector" title="<?php echo __('Search') ?>" type="submit">
+                <span><?php echo __('Search') ?></span>
+            </button>
+        </div>
+        <div class="result" data-role="result"></div>
     </div>
-    <div class="result" data-role="result"></div>
-</div>
+<?php endif; ?>

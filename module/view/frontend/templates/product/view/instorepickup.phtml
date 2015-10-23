@@ -2,15 +2,17 @@
 
 /** @var $block \MagentoEse\InStorePickup\Block\Product\View\InStorePickup */
 ?>
-<div class="instorepickup-pdp-wrapper">
-<?php if ($block->isAvailableInStore()): ?>
-    <?php echo $block->getChildHtml('product.info.instorepickup.options') ?>
-<?php else: ?>
-    <span class="availability-label">
-        <?php echo __('Availability') ?>:
-        <span class="availability-result"><?php echo $block->getAvailabilityText() ?></span>
-    </span>
 
+<?php if ($this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()): ?>
+    <div class="instorepickup-pdp-wrapper">
+    <?php if ($block->isAvailableInStore()): ?>
+        <?php echo $block->getChildHtml('product.info.instorepickup.options') ?>
+    <?php else: ?>
+        <span class="availability-label">
+            <?php echo __('Availability') ?>:
+            <span class="availability-result"><?php echo $block->getAvailabilityText() ?></span>
+        </span>
+
+    <?php endif; ?>
+    </div>
 <?php endif; ?>
-</div>
-

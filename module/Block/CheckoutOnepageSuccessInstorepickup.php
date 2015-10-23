@@ -4,6 +4,7 @@ namespace MagentoEse\InStorePickup\Block;
 
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Framework\View\Element\Template;
+use Magento\Checkout\Model\Session as CheckoutSession;
 
 /**
  * Store Selector block
@@ -11,18 +12,18 @@ use Magento\Framework\View\Element\Template;
 class CheckoutOnepageSuccessInstorepickup extends Template
 {
     /**
-     * @var \Magento\Checkout\Model\Session
+     * @var CheckoutSession
      */
     protected $_checkoutSession;
 
     /**
      * @param Context $context
-     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param CheckoutSession $checkoutSession
      * @param array $data
      */
     public function __construct(
         Context $context,
-        \Magento\Checkout\Model\Session $checkoutSession,
+        CheckoutSession $checkoutSession,
         array $data = []
     ) {
         $this->_checkoutSession = $checkoutSession;

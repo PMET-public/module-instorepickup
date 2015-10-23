@@ -1,6 +1,6 @@
 <?php
 
-namespace MagentoEse\InStorePickup\Plugin;
+namespace MagentoEse\InStorePickup\Model\Plugin;
 
 use Magento\Quote\Model\Quote\Item;
 use Magento\Quote\Model\Quote\Item\Processor;

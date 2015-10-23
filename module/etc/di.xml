@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
     <type name="Magento\Quote\Model\Quote\Item\Processor">
-        <plugin name="instorepickup_quote_item_processor" type="MagentoEse\InStorePickup\Plugin\QuoteItemProcessor"/>
+        <plugin name="instorepickup_quote_item_processor" type="MagentoEse\InStorePickup\Model\Plugin\QuoteItemProcessor"/>
     </type>
     <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
-        <plugin name="instorepickup_quote_item_conversion" type="MagentoEse\InStorePickup\Plugin\QuoteItemToOrderItem"/>
+        <plugin name="instorepickup_quote_item_conversion" type="MagentoEse\InStorePickup\Model\Plugin\QuoteItemToOrderItem"/>
     </type>
     <type name="Magento\Quote\Model\Quote">
-        <plugin name="instorepickup_quote" type="MagentoEse\InStorePickup\Plugin\Quote"/>
+        <plugin name="instorepickup_quote" type="MagentoEse\InStorePickup\Model\Plugin\Quote"/>
     </type>
 </config>
