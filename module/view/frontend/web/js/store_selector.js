@@ -5,7 +5,8 @@ define([
     'ko',
     'Magento_Ui/js/modal/modal',
     'jquery/ui',
-    'mage/translate'
+    'mage/translate',
+    'MagentoEse_InStorePickup/js/in-store-pickup-product'
 ], function ($, mageTemplate, resultTemplate, ko, modal){
     "use strict";
 
@@ -214,6 +215,7 @@ define([
             // Update product detail page with store details
             $(this.options.productInfoInstorepickupSelector).empty();
             $(this.options.productInfoInstorepickupSelector).append(response.productInfoInstorepickupOptions);
+            $(".addtocart-mode").inStorePickupProduct();
 
             // Rebind any store change elements after injecting new HTML
             this._bindForStoreChange();
