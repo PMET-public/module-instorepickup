@@ -221,21 +221,49 @@
             padding: 0;
             .control {
                 display: flex;
+                flex-direction: column;
                 padding: 10px 15px;
                 border: 1px solid transparent;
-                input {
-                    width: 25px;
-                    align-self: center;
-                    outline: none;
-                    &:not([disabled]):focus {
-                        box-shadow: none;
+                .option {
+                    display: flex;
+                    input {
+                        width: 25px;
+                        outline: none;
+                        margin-top: 3px;
+                        &:not([disabled]):focus {
+                            box-shadow: none;
+                        }
+                    }
+                    label {
+                        padding-left: 5px;
+                        width: 100%;
+                        div:first-child {
+                            font-weight: bold;
+                        }
                     }
                 }
-                label {
-                    padding-left: 5px;
-                    width: 100%;
-                    div:first-child {
-                        font-weight: bold;
+                .address {
+                    border-top: 1px solid @color-gray80;
+                    display: none;
+                    margin-top: 10px;
+                    padding-top: 10px;
+                    > .label > div {
+                        position: relative;
+                        &:before {
+                            font-family: 'luma-icons';
+                            content: '\e60a';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            font-size: 30px
+                        }
+                        > * {
+                            padding-left: 33px;
+                        }
+                        .instorepickup-change-trigger {
+                            margin-left: 15px;
+                            .link();
+                        }
                     }
                 }
             }
@@ -244,42 +272,9 @@
                 border: 1px solid @color-gray80;
             }
         }
-        > .label > div {
-            position: relative;
-            display: none;
-            &:before {
-                font-family: 'luma-icons';
-                content: '\e60a';
-                position: absolute;
-                top: 0;
-                left: 0;
-                font-size: 30px
-            }
-            > * {
-                padding-left: 40px;
-            }
-            .instorepickup-change-trigger {
-                margin-left: 15px;
-                .link();
-            }
-        }
     }
     .instorepickup-change-trigger {
         .link();
-    }
-}
-
-// Greater than 1440px, overrides anything less
-.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
-    .catalog-product-view .instorepickup-pdp-wrapper .addtocart-mode {
-        display: flex;
-        .form-list {
-            flex: 3;
-        }
-        > .label {
-            flex: 2;
-            align-self: flex-end;
-        }
     }
 }
 
