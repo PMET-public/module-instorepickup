@@ -12,13 +12,13 @@ define([
                 $('.addtocart-mode .control')
                     .removeClass("selected-radio")
                     .find('input[name=instorepickup_addtocart_method]:checked')
-                    .parent()
+                    .parents('.control')
                     .addClass("selected-radio");
                 if ($('.addtocart-mode input[name=instorepickup_addtocart_method]:checked').val() == "pick-up") {
-                    $('.addtocart-mode > .label > div').show();
+                    $('.addtocart-mode .address').show();
                 }
                 else {
-                    $('.addtocart-mode > .label > div').hide();
+                    $('.addtocart-mode .address').hide();
                 }
             });
         }
