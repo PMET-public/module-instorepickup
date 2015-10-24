@@ -20,6 +20,9 @@ class CartItemRenderer
         Renderer $subject,
         $value
     ) {
-        return array(self::TEMPLATE_PATH);
+        if ($subject->getRequest()->getFullActionName() == 'checkout_cart_index') {
+            return array(self::TEMPLATE_PATH);
+        }
+        return array($value);
     }
 }

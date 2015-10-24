@@ -67,7 +67,10 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         </div>
     </td>
 
-    <?php if ($this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()): ?>
+    <?php if (
+        $block->getRequest()->getFullActionName() == 'checkout_cart_index' &&
+        $this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()):
+        ?>
     <td class="col instorepickup-delivery-method" data-th="<?php echo $block->escapeHtml(__('Delivery Method'));?>">
         <?php if ($_item->getInstorepickupAddtocartMethod() == 'pick-up'): ?>
             <h5><?php echo __('IN-STORE PICKUP') ?></h5>
