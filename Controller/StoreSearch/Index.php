@@ -6,7 +6,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Json\Helper\Data;
-use MagentoEse\InStorePickup\Model\Resource\StoreLocation\CollectionFactory;
+use MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation\CollectionFactory;
 
 class Index extends Action
 {
@@ -57,7 +57,7 @@ class Index extends Action
         $zipcode = $params['searchCriteria'];
 
         // Initialize the store location collection
-        /** @var $storeLocCol \MagentoEse\InStorePickup\Model\Resource\StoreLocation\Collection */
+        /** @var $storeLocCol \MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation\Collection */
         $storeLocCol = $this->storeLocColFactory->create();
         $storeLocCol->addZipcodeDistanceFilter($zipcode, $this::DISTANCE);
         $storeLocCol->setPageSize($this::LIMIT_RESULTS);

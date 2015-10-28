@@ -3,15 +3,15 @@
 /**
  * StoreLocation collection
  */
-namespace MagentoEse\InStorePickup\Model\Resource\StoreLocation;
+namespace MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation;
 
-use Magento\Framework\Model\Resource\Db\Collection\AbstractCollection;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Framework\Data\Collection\EntityFactory;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
 use Magento\Framework\Event\ManagerInterface;
-use MagentoEse\InStorePickup\Model\Resource\ZipcodeLocationFactory;
+use MagentoEse\InStorePickup\Model\ResourceModel\ZipcodeLocationFactory;
 use Magento\Framework\DB\Adapter\AdapterInterface;
-use Magento\Framework\Model\Resource\Db\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class Collection extends AbstractCollection
 {
@@ -67,7 +67,7 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init('MagentoEse\InStorePickup\Model\StoreLocation', 'MagentoEse\InStorePickup\Model\Resource\StoreLocation');
+        $this->_init('MagentoEse\InStorePickup\Model\StoreLocation', 'MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation');
     }
 
     /**
@@ -103,7 +103,7 @@ class Collection extends AbstractCollection
      */
     public function addZipcodeDistanceFilter($zipcode, $distance = 50)
     {
-        /** @var $zipLoc \MagentoEse\InStorePickup\Model\Resource\ZipcodeLocation */
+        /** @var $zipLoc \MagentoEse\InStorePickup\Model\ResourceModel\ZipcodeLocation */
         $zipLoc = $this->zipLocFactory->create();
         $geomPointText = $zipLoc->getGeomPointTextByZipcode($zipcode);
 

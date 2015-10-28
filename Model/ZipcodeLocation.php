@@ -13,6 +13,6 @@ class ZipcodeLocation extends AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('MagentoEse\InStorePickup\Model\Resource\ZipcodeLocation');
+        $this->_init('MagentoEse\InStorePickup\Model\ResourceModel\ZipcodeLocation');
     }
 }

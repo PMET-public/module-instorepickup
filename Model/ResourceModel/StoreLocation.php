@@ -1,6 +1,6 @@
 <?php
 
-namespace MagentoEse\InStorePickup\Model\Resource;
+namespace MagentoEse\InStorePickup\Model\ResourceModel;
 
 /**
  * Store Location resource model
@@ -13,7 +13,7 @@ namespace MagentoEse\InStorePickup\Model\Resource;
  * @method string getPostalCode()
  * @method string getPhone()
  */
-class StoreLocation extends \Magento\Framework\Model\Resource\Db\AbstractDb
+class StoreLocation extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**
      * Initialize resource model

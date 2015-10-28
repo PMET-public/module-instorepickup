@@ -24,6 +24,6 @@ class StoreLocation extends AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('MagentoEse\InStorePickup\Model\Resource\StoreLocation');
+        $this->_init('MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation');
     }
 }

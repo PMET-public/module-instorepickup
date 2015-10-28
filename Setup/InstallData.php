@@ -85,7 +85,7 @@ class InstallData implements InstallDataInterface
                 'input' => 'select',
                 'class' => '',
                 'source' => '',
-                'global' => \Magento\Catalog\Model\Resource\Eav\Attribute::SCOPE_GLOBAL,
+                'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_GLOBAL,
                 'visible' => true,
                 'required' => false,
                 'user_defined' => false,

@@ -1,8 +1,8 @@
 <?php
 
-namespace MagentoEse\InStorePickup\Model\Resource;
+namespace MagentoEse\InStorePickup\Model\ResourceModel;
 
-use Magento\Framework\Model\Resource\Db\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class ZipcodeLocation extends AbstractDb
 {
