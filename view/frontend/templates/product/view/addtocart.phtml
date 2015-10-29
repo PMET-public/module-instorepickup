@@ -12,7 +12,7 @@
 <?php $buttonTitle = __('Add to Cart'); ?>
 <?php if ($_product->isSaleable()): ?>
     <div class="box-tocart">
-        <fieldset class="fieldset">
+    <div class="fieldset">
             <?php if ($block->shouldRenderQuantity()): ?>
                 <div class="field qty">
                     <label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Qty') ?></span></label>
@@ -28,7 +28,11 @@
                     </div>
                 </div>
             <?php endif; ?>
+            
+            <?php /* Start Edit - MagentoEse_InStorePickup */ ?>
             <?php echo $block->getBlockHtml('product.info.instorepickup') ?>
+            <?php /* End Edit - MagentoEse_InStorePickup */ ?>
+            
             <div class="actions">
                 <button type="submit"
                         title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
@@ -38,7 +42,7 @@
                 </button>
                 <?php echo $block->getChildHtml('', true) ?>
             </div>
-        </fieldset>
+    </div>
     </div>
 <?php endif; ?>
 <?php if ($block->isRedirectToCartEnabled()) : ?>
