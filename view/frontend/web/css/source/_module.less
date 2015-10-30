@@ -6,6 +6,13 @@
     }
 }
 
+body > .pickup-success-message {
+    /* hide duplicate section of order.success.additional.info below footer
+       have no idea why the blocks of the container are also automatically rendered at the bottom of the body
+       */
+    display: none;
+}
+
 #instorepickup-storeselector {
     /* hide selector contents initially and allow javascript to show contents when the javascript initializes the popup */
     display: none;
