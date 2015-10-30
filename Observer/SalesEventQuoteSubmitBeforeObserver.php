@@ -3,6 +3,7 @@
 namespace MagentoEse\InStorePickup\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Event\Observer;
 
 /**
  * In-Store Pickup Observer Model
@@ -15,7 +16,7 @@ class SalesEventQuoteSubmitBeforeObserver implements ObserverInterface
      * @param \Magento\Framework\Event\Observer $observer
      * @return $this
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
 
         $observer->getEvent()->getOrder()->setHasInstorepickupFulfillment($observer->getEvent()->getQuote()->getHasInstorepickupFulfillment());

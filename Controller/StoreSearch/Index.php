@@ -7,6 +7,7 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Json\Helper\Data;
 use MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation\CollectionFactory;
+use MagentoEse\InStorePickup\Model\ResourceModel\StoreLocation;
 
 class Index extends Action
 {
@@ -68,6 +69,7 @@ class Index extends Action
         $response['distance'] = $this::DISTANCE;
         $response['zipcode'] = $zipcode;
         foreach ($storeLocCol as $storeLoc) {
+            /** @var $storeLoc StoreLocation */
             $response['stores'][] = [
                 'id' => $storeLoc->getId(),
                 'name' => $storeLoc->getName(),

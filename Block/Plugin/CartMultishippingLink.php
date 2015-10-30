@@ -2,31 +2,34 @@
 
 namespace MagentoEse\InStorePickup\Block\Plugin;
 
+use Magento\Checkout\Model\Session;
+use Magento\Multishipping\Block\Checkout\Link;
+
 class CartMultishippingLink
 {
     /**
      * Checkout session
      *
-     * @var \Magento\Checkout\Model\Session
+     * @var Session
      */
     protected $checkoutSession;
 
     /**
-     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param Session $checkoutSession
      */
     public function __construct(
-        \Magento\Checkout\Model\Session $checkoutSession
+        Session $checkoutSession
     ) {
         $this->checkoutSession = $checkoutSession;
     }
 
     /**
-     * @param \Magento\Multishipping\Block\Checkout\Link $subject
+     * @param Link $subject
      * @param string $result
      * @return string
      */
     public function after_toHtml(
-        \Magento\Multishipping\Block\Checkout\Link $subject,
+        Link $subject,
         $result
     ) {
 
