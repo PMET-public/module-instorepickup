@@ -8,7 +8,7 @@
     <!-- ko if: hasInstorepickupFulfillment() -->
     <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
         <div class="title" data-role="title">
-            <strong role="heading"><span data-bind="text: getInstorepickupItemsQty()"></span>
+            <strong role="heading" class="instore"><span data-bind="text: getInstorepickupItemsQty()"></span>
                 <!-- ko i18n: 'Items for In-Store Pickup' --><!-- /ko -->
             </strong>
         </div>
@@ -32,7 +32,7 @@
     <!-- ko if: getNonInstorepickupItemsQty() > 0 -->
     <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
         <div class="title" data-role="title">
-            <strong role="heading"><span data-bind="text: getNonInstorepickupItemsQty()"></span>
+            <strong role="heading" class="home"><span data-bind="text: getNonInstorepickupItemsQty()"></span>
                 <!-- ko i18n: 'Items to Ship' --><!-- /ko -->
             </strong>
         </div>
@@ -58,7 +58,7 @@
     <!-- ko if: hasInstorepickupFulfillment() -->
     <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': true}}">
         <div class="title" data-role="title">
-            <strong role="heading"><span data-bind="text: getInstorepickupItemsQty()"></span>
+            <strong role="heading" class="instore"><span data-bind="text: getInstorepickupItemsQty()"></span>
                 <!-- ko i18n: 'Items for In-Store Pickup' --><!-- /ko -->
             </strong>
         </div>
@@ -82,7 +82,7 @@
     <!-- ko if: getNonInstorepickupItemsQty() > 0 -->
     <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': true}}">
         <div class="title" data-role="title">
-            <strong role="heading"><span data-bind="text: getNonInstorepickupItemsQty()"></span>
+            <strong role="heading" class="home"><span data-bind="text: getNonInstorepickupItemsQty()"></span>
                 <!-- ko i18n: 'Items to Ship' --><!-- /ko -->
             </strong>
         </div>
