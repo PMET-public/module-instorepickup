@@ -9,6 +9,12 @@ use Magento\Quote\Model\Quote\Item;
 class Quote
 {
     /**
+     * possible form values for the add to cart method
+     */
+    const ADD_TO_CART_METHOD_PICKUP = 'pick-up';
+    const ADD_TO_CART_METHOD_SHIP_TO_HOME = 'ship-to-home';
+
+    /**
      * Store Location session
      *
      * @var Session\StoreLocation
@@ -39,7 +45,7 @@ class Quote
         $quote = $proceed($item);
 
         // Set some quote attribute to flag the existance of in store pickup items and the store location id used
-        if ($item->getInstorepickupAddtocartMethod() == 'pick-up') {
+        if ($item->getInstorepickupAddtocartMethod() == self::ADD_TO_CART_METHOD_PICKUP) {
             $quote->setHasInstorepickupFulfillment(1);
             $quote->setInstorepickupStoreLocationId($this->storeLocationSession->getStoreLocation()->getId());
             $quote->setInstorepickupStoreLocationName($this->storeLocationSession->getStoreLocation()->getName());
@@ -62,7 +68,7 @@ class Quote
         \Magento\Quote\Model\Quote $subject,
         \Magento\Quote\Model\Quote $result
     ) {
-        return $this->CheckQuoteAfterItemRemoved($result);
+        return $this->checkQuoteAfterItemRemoved($result);
     }
 
 
@@ -75,7 +81,7 @@ class Quote
         \Magento\Quote\Model\Quote $subject,
         \Magento\Quote\Model\Quote $result
     ) {
-        return $this->CheckQuoteAfterItemRemoved($result);
+        return $this->checkQuoteAfterItemRemoved($result);
     }
 
 
@@ -88,25 +94,28 @@ class Quote
         \Magento\Quote\Model\Quote $subject,
         \Magento\Quote\Model\Quote $result
     ) {
-        return $this->CheckQuoteAfterItemRemoved($result);
+        return $this->checkQuoteAfterItemRemoved($result);
     }
 
     /**
+     * Check the quote after an item has been removed to see if we need to clear attribute values
+     *
      * @param \Magento\Quote\Model\Quote $result
      * @return \Magento\Quote\Model\Quote
      */
-    private function CheckQuoteAfterItemRemoved(\Magento\Quote\Model\Quote $result) {
+    protected function checkQuoteAfterItemRemoved(\Magento\Quote\Model\Quote $result) {
 
         // Loop through all items to check for the existance of any in store pickup items
         $foundInstorepickupItem = false;
         foreach ($result->getAllVisibleItems() as $item)
         {
-            if ($item->getInstorepickupAddtocartMethod() == 'pick-up') {
+            if ($item->getInstorepickupAddtocartMethod() == self::ADD_TO_CART_METHOD_PICKUP) {
                 $foundInstorepickupItem = true;
+                break;
             }
         }
 
-        // If there are no longer any items for in store pickup, remove the flag and store location id
+        // If there are no longer any items for in store pickup, remove the flag and store location id from the quote
         if ($foundInstorepickupItem == false) {
             $result->setHasInstorepickupFulfillment(0);
             $result->setInstorepickupStoreLocationId(0);
@@ -140,7 +149,7 @@ class Quote
         $containsOnlyInStorePickupItems = true;
         foreach ($subject->getAllVisibleItems() as $item)
         {
-            if ($item->getInstorepickupAddtocartMethod() != 'pick-up') {
+            if ($item->getInstorepickupAddtocartMethod() != self::ADD_TO_CART_METHOD_PICKUP) {
                 $containsOnlyInStorePickupItems = false;
             }
         }

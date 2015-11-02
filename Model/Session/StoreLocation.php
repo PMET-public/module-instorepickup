@@ -117,7 +117,10 @@ class StoreLocation extends Session\SessionManager
                 $storeLocation->load($data['id']);
 
                 // save the store location to a class property for more efficient multiple gets
-                if ($storeLocation->getId() > 0) $this->storeLocation = $storeLocation;
+                if ($storeLocation->getId() > 0)
+                {
+                    $this->storeLocation = $storeLocation;
+                }
                 return $this->storeLocation;
             }
             return null;

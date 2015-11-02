@@ -6,7 +6,7 @@
 
 // @codingStandardsIgnoreFile
 
-/** @var $block \MagentoEse\InStorePickup\Block\Cart\Item\Renderer */
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
 
 $_item = $block->getItem();
 $product = $_item->getProduct();
@@ -66,7 +66,9 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <?php endif;?>
         </div>
     </td>
-
+    
+    
+    <?php /* Start Edit - MagentoEse_InStorePickup */ ?>
     <?php if (
         $block->getRequest()->getFullActionName() == 'checkout_cart_index' &&
         $this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()):
@@ -82,6 +84,8 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         <?php endif; ?>
     </td>
     <?php endif;?>
+    <?php /* End Edit - MagentoEse_InStorePickup */ ?>
+    
 
     <?php if ($canApplyMsrp): ?>
         <td class="col msrp" data-th="<?php echo $block->escapeHtml(__('Price')); ?>">

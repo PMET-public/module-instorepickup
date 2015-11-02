@@ -13,6 +13,12 @@ use Magento\Catalog\Model\Product;
 class InStorePickup extends Template
 {
     /**
+     * Values used in admin text for in_store_avialable product attribute
+     */
+    const ADMIN_IN_STORE_AVAILABLE_YES = 'In Store';
+    const ADMIN_IN_STORE_AVAILABLE_NO = 'Online Exclusive';
+
+    /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
@@ -59,7 +65,7 @@ class InStorePickup extends Template
      */
     public function isAvailableInStore()
     {
-        return $this->getDefaultAttributeText($this->getProduct(), 'in_store_available') == 'In Store';
+        return $this->getDefaultAttributeText($this->getProduct(), 'in_store_available') == self::ADMIN_IN_STORE_AVAILABLE_YES;
     }
 
     public function getAvailabilityText()
@@ -81,7 +87,7 @@ class InStorePickup extends Template
         // Reference:
         //  \Magento\Eav\Model\Entity\Attribute\Source\Table::getOptionText
         $isMultiple = false;
-        if (strpos($value, ',')) {
+        if (strpos($value, ',') !== false) {
             $isMultiple = true;
             $value = explode(',', $value);
         }
