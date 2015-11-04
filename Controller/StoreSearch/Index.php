@@ -50,7 +50,7 @@ class Index extends Action
      *
      * @return Page
      */
-    public function execute()
+    public function executeInternal()
     {
         $params = (array)$this->getRequest()->getParams();
 
