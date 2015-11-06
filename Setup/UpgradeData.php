@@ -40,7 +40,11 @@ class UpgradeData implements UpgradeDataInterface
 
         if (version_compare($context->getVersion(), '0.1.6', '<')) {
 
-            $content = <<<EOD
+            $connection = $setup->getConnection();
+            try {
+                $connection->beginTransaction();
+
+                $content = <<<EOD
 <div class="pickup-success-message">
     <h3>Next Steps</h3>
     <div>
@@ -58,17 +62,25 @@ class UpgradeData implements UpgradeDataInterface
 </div>
 EOD;
 
-            $cmsBlock = [
-                'title' => 'Checkout Onepage Success - In-Store Pickup',
-                'identifier' => 'onepage_success_instorepickup',
-                'content' => $content,
-                'is_active' => 1,
-                'stores' => 0,
-            ];
+                $cmsBlock = [
+                    'title' => 'Checkout Onepage Success - In-Store Pickup',
+                    'identifier' => 'onepage_success_instorepickup',
+                    'content' => $content,
+                    'is_active' => 1,
+                    'stores' => 0,
+                ];
 
-            /** @var \Magento\Cms\Model\Block $block */
-            $block = $this->blockFactory->create();
-            $block->setData($cmsBlock)->save();
+                /** @var \Magento\Cms\Model\Block $block */
+                $block = $this->blockFactory->create();
+                $block->setData($cmsBlock)->save();
+
+                $connection->commit();
+            } catch (\Exception $e) {
+
+                // If an error occured rollback the database changes as if they never happened
+                $connection->rollback();
+                throw $e;
+            }
         }
 
         $setup->endSetup();

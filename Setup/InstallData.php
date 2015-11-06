@@ -52,60 +52,72 @@ class InstallData implements InstallDataInterface
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        /**
-         * Fill table directory_location_pickup_store with sample data
-         */
-        $columns = ['name', 'street_address', 'city', 'state', 'postal_code', 'phone', 'lat_deg', 'lon_deg', 'lat_rad', 'lon_rad', 'real_phone'];
-        $setup->getConnection()->insertArray($setup->getTable('directory_location_pickup_store'), $columns, $this->directoryStore);
+        $connection = $setup->getConnection();
+        try {
+            $connection->beginTransaction();
 
-        /**
-         * Fill table directory_location_us_zip_code with sample data
-         */
-        $columns = ['zip', 'lat', 'lon', 'city', 'state', 'county', 'type'];
-        foreach ($this->directoryZipcode as $chunk) {
-            $setup->getConnection()->insertArray($setup->getTable('directory_location_us_zip_code'), $columns, $chunk);
-        }
+            /**
+             * Fill table directory_location_pickup_store with sample data
+             */
+            $columns = ['name', 'street_address', 'city', 'state', 'postal_code', 'phone', 'lat_deg', 'lon_deg', 'lat_rad', 'lon_rad', 'real_phone'];
+            $setup->getConnection()->insertArray($setup->getTable('directory_location_pickup_store'), $columns, $this->directoryStore);
 
-        /** @var EavSetup $eavSetup */
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+            /**
+             * Fill table directory_location_us_zip_code with sample data
+             */
+            $columns = ['zip', 'lat', 'lon', 'city', 'state', 'county', 'type'];
+            foreach ($this->directoryZipcode as $chunk) {
+                $setup->getConnection()->insertArray($setup->getTable('directory_location_us_zip_code'), $columns, $chunk);
+            }
 
-        /**
-         * Add attributes to the eav/attribute
-         */
+            /** @var EavSetup $eavSetup */
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
-        $eavSetup->addAttribute(
-            \Magento\Catalog\Model\Product::ENTITY,
-            'in_store_available',
-            [
-                'group' => 'Product Details',
-                'type' => 'int',
-                'backend' => '',
-                'frontend' => '',
-                'label' => 'Available in Store',
-                'input' => 'select',
-                'class' => '',
-                'source' => '',
-                'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_GLOBAL,
-                'visible' => true,
-                'required' => false,
-                'user_defined' => false,
-                'default' => 'Online Exclusive',
-                'searchable' => false,
-                'filterable' => false,
-                'comparable' => false,
-                'visible_on_front' => false,
-                'used_in_product_listing' => false,
-                'unique' => false,
-                'is_used_in_grid' => false,
-                'is_visible_in_grid' => false,
-                'is_filterable_in_grid' => false,
-                'option' => [
-                    'values' => [
-                        'In Store',
-                        'Online Exclusive'
+            /**
+             * Add attributes to the eav/attribute
+             */
+
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Product::ENTITY,
+                'in_store_available',
+                [
+                    'group' => 'Product Details',
+                    'type' => 'int',
+                    'backend' => '',
+                    'frontend' => '',
+                    'label' => 'Available in Store',
+                    'input' => 'select',
+                    'class' => '',
+                    'source' => '',
+                    'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_GLOBAL,
+                    'visible' => true,
+                    'required' => false,
+                    'user_defined' => false,
+                    'default' => 'Online Exclusive',
+                    'searchable' => false,
+                    'filterable' => false,
+                    'comparable' => false,
+                    'visible_on_front' => false,
+                    'used_in_product_listing' => false,
+                    'unique' => false,
+                    'is_used_in_grid' => false,
+                    'is_visible_in_grid' => false,
+                    'is_filterable_in_grid' => false,
+                    'option' => [
+                        'values' => [
+                            'In Store',
+                            'Online Exclusive'
+                        ]
                     ]
                 ]
-            ]
-        );
+            );
+
+            $connection->commit();
+        } catch (\Exception $e) {
+
+            // If an error occured rollback the database changes as if they never happened
+            $connection->rollback();
+            throw $e;
+        }
     }
 }
