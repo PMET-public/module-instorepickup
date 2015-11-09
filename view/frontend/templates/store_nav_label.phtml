@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var $block \MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate
+ */
+$storeLocation = $block->getChosenStoreLocation();
+?>
+<?php if($block->hasStoreBeenChosen()): ?>
+    <span id="instorepickup-selected-store"><?php echo __('My Store') ?>: <?php echo $storeLocation->getName() ?></span>
+<?php else: ?>
+    <span><?php echo __('My Store') ?></span>
+<?php endif; ?>

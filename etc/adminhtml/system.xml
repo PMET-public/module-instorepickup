@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magentoese" translate="label" sortOrder="101">
+            <label>Magento ESE</label>
+        </tab>
+        <section id="magentoese_instorepickup" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>In-Store Pickup</label>
+            <tab>magentoese</tab>
+            <resource>Magento_Ese::config_instorepickup</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="enable_instorepickup" translate="label" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable In-Store Pickup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

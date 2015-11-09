@@ -1,0 +1,8 @@
+<?php
+/**
+ * @var $block \MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate
+ */
+?>
+<?php if($block->hasStoreBeenChosen()): ?>
+    <?php echo $block->getChildHtml(); ?>
+<?php endif; ?>

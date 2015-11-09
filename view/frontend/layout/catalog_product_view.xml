@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">MagentoEse_InStorePickup::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">MagentoEse_InStorePickup::product/view/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <block class="MagentoEse\InStorePickup\Block\Product\View\InStorePickup" name="product.info.instorepickup" template="MagentoEse_InStorePickup::product/view/instorepickup.phtml">
+            <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="product.info.instorepickup.options" template="MagentoEse_InStorePickup::product/view/instorepickup_options.phtml"/>
+        </block>
+    </body>
+</page>

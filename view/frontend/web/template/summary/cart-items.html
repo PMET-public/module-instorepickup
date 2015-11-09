@@ -1,0 +1,109 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko ifnot: isItemsBlockExpanded() -->
+    <!-- ko if: hasInstorepickupFulfillment() -->
+    <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+        <div class="title" data-role="title">
+            <strong role="heading" class="instore"><span data-bind="text: getInstorepickupItemsQty()"></span>
+                <!-- ko i18n: 'Items for In-Store Pickup' --><!-- /ko -->
+            </strong>
+        </div>
+        <div class="content minicart-items" data-role="content">
+            <div class="minicart-items-wrapper overflowed">
+                <ol class="minicart-items">
+                    <!-- ko foreach: getInstorepickupItems() -->
+                    <li class="product-item">
+                        <div class="product">
+                            <!-- ko foreach: $parent.elems() -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: getNonInstorepickupItemsQty() > 0 -->
+    <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+        <div class="title" data-role="title">
+            <strong role="heading" class="home"><span data-bind="text: getNonInstorepickupItemsQty()"></span>
+                <!-- ko i18n: 'Items to Ship' --><!-- /ko -->
+            </strong>
+        </div>
+        <div class="content minicart-items" data-role="content">
+            <div class="minicart-items-wrapper overflowed">
+                <ol class="minicart-items">
+                    <!-- ko foreach: getNonInstorepickupItems() -->
+                    <li class="product-item">
+                        <div class="product">
+                            <!-- ko foreach: $parent.elems() -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+<!-- /ko -->
+<!-- ko if: isItemsBlockExpanded() -->
+    <!-- ko if: hasInstorepickupFulfillment() -->
+    <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': true}}">
+        <div class="title" data-role="title">
+            <strong role="heading" class="instore"><span data-bind="text: getInstorepickupItemsQty()"></span>
+                <!-- ko i18n: 'Items for In-Store Pickup' --><!-- /ko -->
+            </strong>
+        </div>
+        <div class="content minicart-items" data-role="content">
+            <div class="minicart-items-wrapper overflowed">
+                <ol class="minicart-items">
+                    <!-- ko foreach: getInstorepickupItems() -->
+                    <li class="product-item">
+                        <div class="product">
+                            <!-- ko foreach: $parent.elems() -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: getNonInstorepickupItemsQty() > 0 -->
+    <div class="block items-in-cart" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': true}}">
+        <div class="title" data-role="title">
+            <strong role="heading" class="home"><span data-bind="text: getNonInstorepickupItemsQty()"></span>
+                <!-- ko i18n: 'Items to Ship' --><!-- /ko -->
+            </strong>
+        </div>
+        <div class="content minicart-items" data-role="content">
+            <div class="minicart-items-wrapper overflowed">
+                <ol class="minicart-items">
+                    <!-- ko foreach: getNonInstorepickupItems() -->
+                    <li class="product-item">
+                        <div class="product">
+                            <!-- ko foreach: $parent.elems() -->
+                            <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+<!-- /ko -->
+
+
+

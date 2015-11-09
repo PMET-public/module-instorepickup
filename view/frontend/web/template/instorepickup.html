@@ -1,0 +1,22 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!-- ko if: (isVisible()) -->
+<div class="shipping-information">
+    <div class="ship-to">
+        <div class="shipping-information-title">
+            <span data-bind="i18n: 'In-Store Pickup Address'"></span>
+        </div>
+        <div class="shipping-information-content">
+            <!-- ko text: quoteData.instorepickup_store_location_name --><!-- /ko --><br/>
+            <!-- ko text: quoteData.instorepickup_store_location_street --><!-- /ko --><br/>
+            <!-- ko text: quoteData.instorepickup_store_location_city --><!-- /ko -->, <!-- ko text: quoteData.instorepickup_store_location_state --><!-- /ko --> <!-- ko text: quoteData.instorepickup_store_location_postal_code --><!-- /ko --><br/>
+            <!-- ko text: quoteData.instorepickup_store_location_phone --><!-- /ko --><br/>
+        </div>
+    </div>
+</div>
+<!--/ko-->
