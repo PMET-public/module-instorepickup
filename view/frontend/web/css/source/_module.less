@@ -176,17 +176,12 @@ body > .pickup-success-message {
                 right: 11%;
                 top: 12px;
                 z-index: 1;
+                .lib-button-reset();
                 .lib-button-icon(
                 @_icon-font-content: @icon-search,
                 @_icon-font-text-hide: true,
                 @_icon-font-color: @header-icons-color
                 );
-                .lib-button-reset();
-                &:focus {
-                    &:before {
-                        .lib-css(color, @color-gray20);
-                    }
-                }
                 padding: @indent__xs 0;
             }
         }
