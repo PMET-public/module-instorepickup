@@ -103,7 +103,6 @@ EOD;
             $connection = $setup->getConnection();
             try {
                 $connection->beginTransaction();
-                print_r($this->inventoryStore);
                 foreach ($this->inventoryStore as $store) {
                     if ($installer->getTableRow($installer->getTable('directory_location_pickup_store'), 'name', $store[0])) {
                         $installer->updateTableRow(
