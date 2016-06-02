@@ -6,6 +6,8 @@
 
 namespace MagentoEse\InStorePickup\Setup;
 
+use Magento\Eav\Setup\EavSetup;
+use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Cms\Model\BlockFactory;
 use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -24,10 +26,22 @@ class UpgradeData implements UpgradeDataInterface
     /**
      * @param BlockFactory $modelBlockFactory
      */
+
+    private $eavSetupFactory;
+
+    /**
+     * Init
+     *
+     * @param EavSetupFactory $eavSetupFactory
+     */
+
     public function __construct(
-        BlockFactory $modelBlockFactory
+        BlockFactory $modelBlockFactory,
+        EavSetupFactory $eavSetupFactory
     ) {
         $this->blockFactory = $modelBlockFactory;
+        $this->eavSetupFactory = $eavSetupFactory;
+        $this->inventoryStore = require 'StoreInventory.php';
     }
 
     /**
@@ -36,6 +50,7 @@ class UpgradeData implements UpgradeDataInterface
      */
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
+        $installer = $setup;
         $setup->startSetup();
 
         if (version_compare($context->getVersion(), '0.1.6', '<')) {
@@ -73,6 +88,52 @@ EOD;
                 /** @var \Magento\Cms\Model\Block $block */
                 $block = $this->blockFactory->create();
                 $block->setData($cmsBlock)->save();
+
+                $connection->commit();
+            } catch (\Exception $e) {
+
+                // If an error occured rollback the database changes as if they never happened
+                $connection->rollback();
+                throw $e;
+            }
+        }
+
+        if (version_compare($context->getVersion(), '0.1.7', '<')) {
+
+            $connection = $setup->getConnection();
+            try {
+                $connection->beginTransaction();
+                print_r($this->inventoryStore);
+                foreach ($this->inventoryStore as $store) {
+                    if ($installer->getTableRow($installer->getTable('directory_location_pickup_store'), 'name', $store[0])) {
+                        $installer->updateTableRow(
+                            $installer->getTable('directory_location_pickup_store'),
+                            'name',
+                            $store[0],
+                            'inventory',
+                            $store[1]
+                        );
+                    }
+                }
+                /** @var EavSetup $eavSetup */
+                $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+
+                /**
+                 * Update attribute to be included in the admin grid and layered nav
+                 */
+
+                $eavSetup->updateAttribute(
+                    \Magento\Catalog\Model\Product::ENTITY,
+                    'in_store_available',
+                    [
+                        'is_filterable' => true,
+                        'is_visible_in_grid' => true,
+                        'is_used_in_grid' => true,
+                        'is_filterable_in_grid' => true,
+                        'is_filterable_in_search' => true,
+                        'is_searchable_in_grid' => true,
+                    ]
+                );
 
                 $connection->commit();
             } catch (\Exception $e) {

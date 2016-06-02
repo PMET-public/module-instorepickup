@@ -257,7 +257,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         if (version_compare($context->getVersion(), '0.1.5', '<')) {
 
             // Logging
-            $this->_logger->info('MagentoEse_InStorePickup Schema Upgrade to 0.1.4');
+            $this->_logger->info('MagentoEse_InStorePickup Schema Upgrade to 0.1.5');
 
             // Add column to quote/order defining the store_location (street) of the selected store for in-store pickup
             $setup->getConnection()->addColumn(
@@ -280,6 +280,25 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     'comment' => 'Store Location Street for In-Store Pickup'
                 ]
             );
+        }
+
+        if (version_compare($context->getVersion(), '0.1.7', '<')) {
+
+            // Logging
+            $this->_logger->info('MagentoEse_InStorePickup Schema Upgrade to 0.1.7');
+
+            // Add column for inventory on each store
+            $setup->getConnection()->addColumn(
+                $setup->getTable('directory_location_pickup_store'),
+                'inventory',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                    'default' => 0,
+                    'nullable' => true,
+                    'comment' => 'Inventory of product for ISPU'
+                ]
+            );
+
         }
 
         $setup->endSetup();
