@@ -12,5 +12,6 @@
                 </block>
             </block>
         </referenceBlock>
+        <referenceBlock name="magentoese_instorepickup_nav_label" remove="true"/>
     </body>
 </page>
