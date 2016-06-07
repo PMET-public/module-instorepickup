@@ -9,7 +9,7 @@
             <p><%- record['street_address'] %></p>
             <p><%- record['city'] %>, <%- record['state'] %> <%- record['postal_code'] %></p>
             <p><%- record['phone'] %></p>
-            <button type="button" class="button action submit primary choose-store-button" data-role="store-selector-choice"><span><span>Choose this store</span></span></button>
+             <span style="float: right;">Available: <%- record['inventory'] %></span><button type="button" class="button action submit primary choose-store-button" data-role="store-selector-choice"><span><span>Choose this store</span></span></button>
         </form>
     </li>
     <% }); %>

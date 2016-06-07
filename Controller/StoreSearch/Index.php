@@ -78,7 +78,8 @@ class Index extends Action
                 'state' => $storeLoc->getState(),
                 'postal_code' => $storeLoc->getPostalCode(),
                 'phone' => $storeLoc->getPhone(),
-                'distance' => $storeLoc->getDistance()
+                'distance' => $storeLoc->getDistance(),
+                'inventory' => $storeLoc->getInventory()
             ];
         }
 

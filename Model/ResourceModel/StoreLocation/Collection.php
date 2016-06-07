@@ -88,7 +88,8 @@ class Collection extends AbstractCollection
                     'city',
                     'state',
                     'postal_code',
-                    'phone'
+                    'phone',
+                    'inventory'
                 ]);
 
         return $this;
