@@ -85,7 +85,7 @@ class InstallData implements InstallDataInterface
                     'type' => 'int',
                     'backend' => '',
                     'frontend' => '',
-                    'label' => 'Available in Store',
+                    'label' => 'Availability',
                     'input' => 'select',
                     'class' => '',
                     'source' => '',
