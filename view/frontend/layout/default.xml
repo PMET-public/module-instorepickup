@@ -4,7 +4,7 @@
         <referenceContainer name="root">
             <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="magentoese_instorepickup_storeselector" after="page.wrapper" template="MagentoEse_InStorePickup::store_selector.phtml"/>
         </referenceContainer>
-        <referenceBlock name="top.links">
+        <referenceBlock name="header.panel">
             <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="instorepickup_nav" before="-" template="MagentoEse_InStorePickup::store_nav.phtml">
                 <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_nav_label" template="MagentoEse_InStorePickup::store_nav_label.phtml"/>
                 <block class="MagentoEse\InStorePickup\Block\StoreSelectorScopePrivate" name="magentoese_instorepickup_nav_dropdown" template="MagentoEse_InStorePickup::store_nav_dropdown.phtml">
