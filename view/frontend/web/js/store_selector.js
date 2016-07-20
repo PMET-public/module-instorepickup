@@ -34,6 +34,16 @@ define([
          * Creates widget 'magentoeseInStorePickup.storeSelector'
          * @private
          */
+        _translate: function(){
+            //The purpose of this function is only to get strings from the knockout template
+            //to be read by static content deployment so translations are populated into js-translation.json
+            var nothing = $.mage.__('No stores found.');
+            var nothing = $.mage.__('There are');
+            var nothing = $.mage.__('Stores within');
+            var nothing = $.mage.__('miles of');
+            var nothing = $.mage.__('Choose this store');
+            var nothing = $.mage.__('Available');
+        },
         _create: function () {
             var self = this;
 
@@ -167,7 +177,7 @@ define([
             this.element.find(this.options.resultContainer).append($(template));
 
             $('button[data-role="store-selector-choice"]').on('click', $.proxy(this._onStoreChoice, this));
-        },
+       },
 
         /**
          * Submit store selection

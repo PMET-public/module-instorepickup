@@ -20,15 +20,15 @@ $storeLocation = $block->getChosenStoreLocation();
             <li class="control selected-radio">
                 <div class="option">
                     <input type="radio" class="radio" checked="checked" value="ship-to-home" id="ship-to-home" name="instorepickup_addtocart_method">
-                    <label for="ship-to-home" class="home-label">Ship to Home</label>
+                    <label for="ship-to-home" class="home-label"><?php echo __('Ship to Home') ?></label>
                 </div>
             </li>
             <li class="control">
                 <div class="option">
                     <input type="radio" class="radio" value="pick-up" id="pick-up" name="instorepickup_addtocart_method">
                     <label for="pick-up">
-                        <div>Pick up in your local store</div>
-                        <div>Available for pickup <b>TODAY</b></div>
+                        <div><?php echo __('Pick up in your local store') ?></div>
+                        <div><?php echo __('Available for pickup') ?> <b><?php echo __('TODAY') ?></b></div>
                     </label>
                 </div>
                 <div class="address">
