@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="root">
+        <referenceContainer name="content">
             <block class="MagentoEse\InStorePickup\Block\StoreSelector" name="magentoese_instorepickup_storeselector" after="page.wrapper" template="MagentoEse_InStorePickup::store_selector.phtml"/>
         </referenceContainer>
         <referenceBlock name="header.panel">
