@@ -1,8 +1,8 @@
 .lib-font-face(
-@family-name:'custom-icons',
-@font-path: '@{baseDir}MagentoEse_InStorePickup/fonts/custom-icons',
-@font-weight: normal,
-@font-style: normal
+    @family-name:'custom-icons',
+    @font-path: '@{baseDir}MagentoEse_InStorePickup/fonts/custom-icons',
+    @font-weight: normal,
+    @font-style: normal
 );
 
 @cart-item-cell-padding-top: 20px;
@@ -13,354 +13,352 @@
 @font-family-name__luma: 'luma-icons';
 @font-family__luma: @font-family-name__luma;
 
+@mobile-cart-padding: 15px;
+@screen__m_cart: 980px;
+
 .link() {
-    color: @color-blue1;
+    color: @link__color;
     &:hover {
         cursor: pointer;
+        color: @link__hover__color;
         text-decoration: underline;
     }
 }
 
-body > .pickup-success-message {
-    /* hide duplicate section of order.success.additional.info below footer
-       have no idea why the blocks of the container are also automatically rendered at the bottom of the body
-       */
-    display: none;
-}
-
-#instorepickup-storeselector {
-    /* hide selector contents initially and allow javascript to show contents when the javascript initializes the popup */
-    display: none;
-}
-#switcher-instorepickup {
-    /* hide dropdown since it should only be selectable via PDP */
-  display:none;
-}
-.switcher-instorepickup {
-    .dropdown {
-        .lib-dropdown(
-        @_toggle-selector: ~".instorepickup-nav-container",
-        @_options-selector: ~".instorepickup-dropdown",
-        @_dropdown-list-item-hover: false
-        );
-    }
-    .instorepickup-dropdown {
-        width: 300px;
-        cursor: auto;
-        > h3 {
-            color: @color-gray52 !important;
-            float: left;
-            padding: 5px 0 0 10px;
-            margin: 0 0 5px 0;
-            text-transform: none;
-            width: 100%;
-            line-height: 1.4 !important;
-            font-weight: normal;
-            height: 30px;
-            box-sizing: border-box;
-        }
-        > h4 {
-            float: left;
-            font-size: 12px;
-            margin-top: 15px;
-            padding-left: 10px;
-            margin-bottom: 5px;
-            text-transform: none;
-            width: 100%;
-            box-sizing: border-box;
-            > span.action {
-                font-weight: normal;
-                margin-left: 15px;
-                color: @color-blue1 !important;
-                cursor: pointer;
-            }
-            > span.action:hover {
-                text-decoration: underline;
-            }
-            > a {
-                font-weight: normal;
-                margin-left: 15px;
-                color: @color-blue1 !important;
-            }
-        }
-        > address {
-            float: left;
-            font-size: 12px;
-            margin-bottom: 5px;
-            padding-left: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        > ul {
-            float: left;
-            font-size: 12px;
-            margin: 5px 0 0 0;
-            padding: 10px;
-            width: 100%;
-            list-style-type: none;
-            box-sizing: border-box;
-            cursor: auto;
-            li {
-                float: left;
-                width: 100%;
-                padding-left: 8px;
-                padding-right: 8px;
-                box-sizing: border-box;
-                cursor: auto !important;
-                > * {
-                    float: left;
-                    line-height: 23px !important;
-                    padding-left: 10px;
-                    text-align: left;
-                    cursor: auto;
-                }
-                > p {
-                    float: left;
-                    margin: 0;
-                    cursor: auto;
-                }
-                > span {
-                    float: right;
-                    padding-right: 35px;
-                    cursor: auto;
-                }
-            }
-            .odd {
-                background: @color-gray94;
-            }
-        }
-    }
-
-}
-.instorepickup-storeselector-popup {
-    .modal-inner-wrap {
-        max-width: 480px;
-        box-sizing: border-box;
-    }
-    .modal-header {
-        padding: 0;
-        h1 {
-            padding-left: 1.5rem;
-            padding-top: 3.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 0;
-            font-family: @font-family__base;
-            font-size: 24px;
-            font-weight: 400;
-        }
-        .action-close {
-            padding: 1rem;
-        }
-    }
-    .modal-content {
-        overflow: hidden;
-        padding: 0;
-        .input-box {
-            position:  relative;
-            background: none repeat scroll 0 0 @color-gray94;
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-            width: 100%;
-            float: left;
-            fieldset {
-                margin: 0;
-                margin-left: 10%;
-                margin-right: 10%;
-                float: left;
-                width: 80%;
-                input {
-                    border-radius: 3px 0 0 3px;
-                    height: 34px;
-                    width: 100%;
-                }
-            }
-            button {
-                position: absolute;
-                display: inline-block;
-                right: 11%;
-                top: 12px;
-                z-index: 1;
-                .lib-button-reset();
-                .lib-button-icon(
-                @_icon-font-content: @icon-search,
-                @_icon-font-text-hide: true,
-                @_icon-font-color: @header-icons-color
-                );
-                padding: @indent__xs 0;
-            }
-        }
-        .result {
-            clear: both;
-            .result-summary {
-                font-size: 12px;
-                font-weight: bold;
-                margin-bottom: 20px;
-                padding-left: 15px;
-                padding-top: 25px;
-            }
-            ul {
-                overflow-y: scroll;
-                max-height: 300px;
-                list-style: none;
-                padding-left: 1.5rem;
-                padding-bottom: 1.5rem;
-                margin: 0;
-                li {
-                    border-top: 1px solid @color-gray90;
-                    float: left;
-                    padding-bottom: 15px;
-                    padding-top: 15px;
-                    width: 100%;
-                    position: relative;
-                    margin: 0;
-                    p {
-                        margin-bottom: 0;
-                    }
-                    form {
-                        float: left;
-                        width: 270px;
-                        button {
-                            background: @color-blue1;
-                            color: @color-white;
-                            border-radius: 3px;
-                            bottom: 15px;
-                            position: absolute;
-                            right: 20px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-.catalog-product-view .instorepickup-pdp-wrapper {
-    margin-bottom: 15px;
-    .addtocart-mode {
-        .form-list {
-            list-style-type: none;
-            margin-bottom: 15px;
-            padding: 0;
-            .control {
-                display: flex;
-                flex-direction: column;
-                padding: 10px 15px;
-                border: 1px solid transparent;
-                .option {
-                    display: flex;
-                    input {
-                        width: 25px;
-                        outline: none;
-                        margin-top: 3px;
-                        &:not([disabled]):focus {
-                            box-shadow: none;
-                        }
-                    }
-                    label {
-                        padding-left: 5px;
-                        width: 100%;
-                        div:first-child {
-                            font-weight: bold;
-                        }
-                    }
-                    .home-label:after {
-                        font-family: 'custom-icons';
-                        content: '\e807';
-                        margin-left: 10px;
-                    }
-                }
-                .address {
-                    border-top: 1px solid @color-gray80;
-                    display: none;
-                    margin-top: 10px;
-                    padding-top: 10px;
-                    > .label > div {
-                        position: relative;
-                        &:before {
-                            font-family: 'luma-icons';
-                            content: '\e60a';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            font-size: 30px
-                        }
-                        > * {
-                            padding-left: 33px;
-                        }
-                        .instorepickup-change-trigger {
-                            margin-left: 15px;
-                            .link();
-                        }
-                    }
-                }
-            }
-            .selected-radio {
-                background-color: @color-gray94;
-                border: 1px solid @color-gray80;
-            }
-        }
-    }
-    .instorepickup-change-trigger {
-        .link();
-    }
-}
-.modal-content {
-    .opc-block-summary .title {
-        strong.instore:before {
-            font-family: @font-family__luma;
-            content: '\e60a';
-        }
-        strong.home:before {
-            font-family: @font-family__custom;
-            content: '\e807';
-        }
-        strong:before {
-            margin-right: 10px;
-        }
-    }
-    .opc-block-shipping-information {
-        background-color: @color-white-smoke;
-        .shipping-information {
-            padding: 20px 0 20px 0;
-            .ship-to {
-                margin-bottom: 0;
-            }
-        }
-    }
-}
-
-// Cart Page
-#shopping-cart-table .instorepickup-delivery-method{
-    .instore:before {
-        font-family: @font-family__luma;
-        content: '\e60a';
-    }
-    .home:before {
-        font-family: @font-family__custom;
-        content: '\e807';
-    }
-    h5 {
-        margin: 0 0 10px 0;
-        font-weight: 700;
-        font-size: 1.4rem;
-        line-height: 1.42857143;
-        &:before {
-            margin-right: 10px;
-        }
-    }
-    p {
-        margin: 0;
-        font-size: 12px;
-    }
-}
-
-@mobile-cart-padding: 15px;
-@screen__m_cart: 980px;
 
 //
 //  Common
 //  _____________________________________________
 
 & when (@media-common = true) {
+    body > .pickup-success-message {
+        /* hide duplicate section of order.success.additional.info below footer
+           have no idea why the blocks of the container are also automatically rendered at the bottom of the body
+           */
+        display: none;
+    }
+
+    #instorepickup-storeselector {
+        /* hide selector contents initially and allow javascript to show contents when the javascript initializes the popup */
+        display: none;
+    }
+    .switcher-instorepickup {
+        .dropdown {
+            .lib-dropdown(
+                @_toggle-selector: ~".instorepickup-nav-container",
+                @_options-selector: ~".instorepickup-dropdown",
+                @_dropdown-list-item-hover: false
+            );
+        }
+        .instorepickup-dropdown {
+            width: 300px;
+            cursor: auto;
+            > h3 {
+                color: @color-gray52 !important;
+                float: left;
+                padding: 5px 0 0 10px;
+                margin: 0 0 5px 0;
+                text-transform: none;
+                width: 100%;
+                line-height: 1.4 !important;
+                font-weight: normal;
+                height: 30px;
+                box-sizing: border-box;
+            }
+            > h4 {
+                float: left;
+                font-size: 12px;
+                margin-top: 15px;
+                padding-left: 10px;
+                margin-bottom: 5px;
+                text-transform: none;
+                width: 100%;
+                box-sizing: border-box;
+                > span.action {
+                    font-weight: normal;
+                    margin-left: 15px;
+                    color: @color-blue1 !important;
+                    cursor: pointer;
+                }
+                > span.action:hover {
+                    text-decoration: underline;
+                }
+                > a {
+                    font-weight: normal;
+                    margin-left: 15px;
+                    color: @color-blue1 !important;
+                }
+            }
+            > address {
+                float: left;
+                font-size: 12px;
+                margin-bottom: 5px;
+                padding-left: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            > ul {
+                float: left;
+                font-size: 12px;
+                margin: 5px 0 0 0;
+                padding: 10px;
+                width: 100%;
+                list-style-type: none;
+                box-sizing: border-box;
+                cursor: auto;
+                li {
+                    float: left;
+                    width: 100%;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    box-sizing: border-box;
+                    cursor: auto !important;
+                    > * {
+                        float: left;
+                        line-height: 23px !important;
+                        padding-left: 10px;
+                        text-align: left;
+                        cursor: auto;
+                    }
+                    > p {
+                        float: left;
+                        margin: 0;
+                        cursor: auto;
+                    }
+                    > span {
+                        float: right;
+                        padding-right: 35px;
+                        cursor: auto;
+                    }
+                }
+                .odd {
+                    background: @color-gray94;
+                }
+            }
+        }
+
+    }
+    .instorepickup-storeselector-popup {
+        .modal-inner-wrap {
+            max-width: 480px;
+            box-sizing: border-box;
+        }
+        .modal-header {
+            padding: 0;
+            h1 {
+                padding-left: 1.5rem;
+                padding-top: 3.5rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 0;
+                font-family: @font-family__base;
+                font-size: 24px;
+                font-weight: 400;
+            }
+            .action-close {
+                padding: 1rem;
+            }
+        }
+        .modal-content {
+            overflow: hidden;
+            padding: 0;
+            .input-box {
+                position: relative;
+                background: none repeat scroll 0 0 @color-gray94;
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+                width: 100%;
+                float: left;
+                fieldset {
+                    margin: 0;
+                    margin-left: 10%;
+                    margin-right: 10%;
+                    float: left;
+                    width: 80%;
+                    input {
+                        border-radius: 3px 0 0 3px;
+                        height: 34px;
+                        width: 100%;
+                    }
+                }
+                button {
+                    position: absolute;
+                    display: inline-block;
+                    right: 11%;
+                    top: 12px;
+                    z-index: 1;
+                    .lib-button-reset();
+                    .lib-button-icon(
+                        @_icon-font-content: @icon-search,
+                        @_icon-font-text-hide: true,
+                        @_icon-font-color: @header-icons-color
+                    );
+                    padding: @indent__xs 0;
+                }
+            }
+            .result {
+                clear: both;
+                .result-summary {
+                    font-size: 12px;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                    padding-left: 15px;
+                    padding-top: 25px;
+                }
+                ul {
+                    overflow-y: scroll;
+                    max-height: 300px;
+                    list-style: none;
+                    padding-left: 1.5rem;
+                    padding-bottom: 1.5rem;
+                    margin: 0;
+                    li {
+                        border-top: 1px solid @color-gray90;
+                        float: left;
+                        padding-bottom: 15px;
+                        padding-top: 15px;
+                        width: 100%;
+                        position: relative;
+                        margin: 0;
+                        p {
+                            margin-bottom: 0;
+                        }
+                        form {
+                            float: left;
+                            width: 270px;
+                            button {
+                                background: @color-blue1;
+                                color: @color-white;
+                                border-radius: 3px;
+                                bottom: 15px;
+                                position: absolute;
+                                right: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .catalog-product-view .instorepickup-pdp-wrapper {
+        margin-bottom: 15px;
+        .addtocart-mode {
+            .form-list {
+                list-style-type: none;
+                margin-bottom: 15px;
+                padding: 0;
+                .control {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 10px 15px;
+                    border: 1px solid transparent;
+                    .option {
+                        display: flex;
+                        input {
+                            width: 25px;
+                            outline: none;
+                            margin-top: 3px;
+                            &:not([disabled]):focus {
+                                box-shadow: none;
+                            }
+                        }
+                        label {
+                            padding-left: 5px;
+                            width: 100%;
+                            div:first-child {
+                                font-weight: bold;
+                            }
+                        }
+                        .home-label:after {
+                            font-family: 'custom-icons';
+                            content: '\e807';
+                            margin-left: 10px;
+                        }
+                    }
+                    .address {
+                        border-top: 1px solid @color-gray80;
+                        display: none;
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        > .label > div {
+                            position: relative;
+                            &:before {
+                                font-family: 'luma-icons';
+                                content: '\e60a';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                font-size: 30px
+                            }
+                            > * {
+                                padding-left: 33px;
+                            }
+                            .instorepickup-change-trigger {
+                                margin-left: 15px;
+                                .link();
+                            }
+                        }
+                    }
+                }
+                .selected-radio {
+                    background-color: @color-gray94;
+                    border: 1px solid @color-gray80;
+                }
+            }
+        }
+        .instorepickup-change-trigger {
+            .link();
+        }
+    }
+    .modal-content {
+        .opc-block-summary .title {
+            strong.instore:before {
+                font-family: @font-family__luma;
+                content: '\e60a';
+            }
+            strong.home:before {
+                font-family: @font-family__custom;
+                content: '\e807';
+            }
+            strong:before {
+                margin-right: 10px;
+            }
+        }
+        .opc-block-shipping-information {
+            background-color: @color-white-smoke;
+            .shipping-information {
+                padding: 20px 0 20px 0;
+                .ship-to {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    // Cart Page
+    #shopping-cart-table .instorepickup-delivery-method {
+        .instore:before {
+            font-family: @font-family__luma;
+            content: '\e60a';
+        }
+        .home:before {
+            font-family: @font-family__custom;
+            content: '\e807';
+        }
+        h5 {
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            font-size: 1.4rem;
+            line-height: 1.42857143;
+            &:before {
+                margin-right: 10px;
+            }
+        }
+        p {
+            margin: 0;
+            font-size: 12px;
+        }
+    }
+
     .cart {
         &.table-wrapper {
             thead {
@@ -399,27 +397,29 @@ body > .pickup-success-message {
 }
 
 // Medium Width Break to prevent column crowding
-@media only screen and (max-width: (@screen__m_cart - 1)) {
+& when (@media-common = true) {
+    @media only screen and (max-width: (@screen__m_cart - 1)) {
 
-    //  Products table
-    .cart {
-        &.table-wrapper {
-            thead {
-                .col {
-                    &.instorepickup-delivery-method  {
-                        display: none;
+        //  Products table
+        .cart {
+            &.table-wrapper {
+                thead {
+                    .col {
+                        &.instorepickup-delivery-method {
+                            display: none;
+                        }
                     }
                 }
-            }
-            .item {
-                .col.instorepickup-delivery-method {
-                    display: block;
-                    min-height: 10px;
-                    padding: 0px @mobile-cart-padding @indent__s 185px;
-                    position: relative;
-                }
-                td.col.item {
-                    padding-bottom: 0px;
+                .item {
+                    .col.instorepickup-delivery-method {
+                        display: block;
+                        min-height: 10px;
+                        padding: 0px @mobile-cart-padding @indent__s 185px;
+                        position: relative;
+                    }
+                    td.col.item {
+                        padding-bottom: 0px;
+                    }
                 }
             }
         }
