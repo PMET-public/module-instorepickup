@@ -13,7 +13,7 @@ $storeLocation = $block->getChosenStoreLocation();
         <span class="availability-result"><?php echo __('In Store') ?></span>
     </p>
 
-    <p><?php echo __('My Store') ?>: <?php echo $storeLocation->getName() ?></p>
+    <p><?php echo __('My Store') ?>: <span><?php echo $storeLocation->getName() ?></span></p>
 
     <div class="addtocart-mode" data-mage-init='{"inStorePickupProduct":{}}'>
         <ul class="form-list">
@@ -46,4 +46,3 @@ $storeLocation = $block->getChosenStoreLocation();
 <?php else: ?>
     <span class="instorepickup-change-trigger"><?php echo __('Check in-store availability') ?></span>
 <?php endif; ?>
-
