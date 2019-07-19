@@ -43,6 +43,7 @@ define([
             var nothing = $.mage.__('miles of');
             var nothing = $.mage.__('Choose this store');
             var nothing = $.mage.__('Available');
+            var nothing = $.mage.__('Find your local store');
         },
         _create: function () {
             var self = this;
