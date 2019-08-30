@@ -17,7 +17,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
 ?>
 <tbody class="cart item">
 <tr class="item-info">
-<td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+    <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
         <?php if ($block->hasProductUrl()):?>
         <a href="<?= /* @escapeNotVerified */ $block->getProductUrl() ?>"
            title="<?= $block->escapeHtml($block->getProductName()) ?>"
@@ -27,7 +27,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <span class="product-item-photo">
 
             <?php endif;?>
-            <span class="product-image-container">
+            <span class="product-image-container" style="width:165px;">
                 <span class="product-image-wrapper">
                     <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
                     <?php if ($block->hasProductUrl()):?>
