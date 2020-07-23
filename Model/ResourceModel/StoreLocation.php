@@ -7,10 +7,10 @@ namespace MagentoEse\InStorePickup\Model\ResourceModel;
  *
  * @method string getId()
  * @method string getName()
- * @method string getStreetAddress()
+ * @method string getStreet()
  * @method string getCity()
- * @method string getState()
- * @method string getPostalCode()
+ * @method string getRegion()
+ * @method string getPostcode()
  * @method string getPhone()
  */
 class StoreLocation extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
@@ -22,6 +22,6 @@ class StoreLocation extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init('directory_location_pickup_store', 'id');
+        $this->_init('inventory_source', 'source_code');
     }
 }

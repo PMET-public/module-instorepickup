@@ -37,18 +37,17 @@ define([
         _translate: function(){
             //The purpose of this function is only to get strings from the knockout template
             //to be read by static content deployment so translations are populated into js-translation.json
-            var nothing = $.mage.__('No stores found.');
-            var nothing = $.mage.__('There are');
-            var nothing = $.mage.__('Stores within');
+            var nothing = $.mage.__('Not available at any nearby stores');
+            var nothing = $.mage.__('Available at');
+            var nothing = $.mage.__('stores within');
             var nothing = $.mage.__('miles of');
             var nothing = $.mage.__('Choose this store');
-            var nothing = $.mage.__('Available');
+            var nothing = $.mage.__('# in stock');
             var nothing = $.mage.__('Find your local store');
         },
         _create: function () {
             var self = this;
-
-            // Create the popup for searching stores
+             // Create the popup for searching stores
             this._createPopUp($(this.options.storeSelectorSelector));
             $(this.options.storeSelectorSelector).show();
 

@@ -82,14 +82,13 @@ class Collection extends AbstractCollection
             ->from(
                 ['main_table' => $this->getResource()->getMainTable()],
                 [
-                    'id',
+                    'source_code',
                     'name',
-                    'street_address',
+                    'street',
                     'city',
-                    'state',
-                    'postal_code',
-                    'phone',
-                    'inventory'
+                    'region',
+                    'postcode',
+                    'phone'
                 ]);
 
         return $this;
@@ -142,11 +141,12 @@ class Collection extends AbstractCollection
         if (!empty($distance)) {
             $select = $this->getSelect();
             $condition = $select->getConnection()->prepareSqlCondition(
-                New \Zend_Db_Expr(
+                new \Zend_Db_Expr(
                     $this->getDistanceColumnDefinition($originGeomPointText)
                 ), ['lt' => $distance]);
             $select->where($condition);
         }
+
         return $this;
     }
 
@@ -163,10 +163,10 @@ class Collection extends AbstractCollection
             "(
                 %s * acos (
                   cos ( radians(X(GeomFromText('%s'))) )
-                  * cos( radians( X(GeomFromText(concat('POINT(', cast(lat_deg as char(15)), ' ', cast(lon_deg as char(15)), ')'))) ) )
-                  * cos( radians( Y(GeomFromText(concat('POINT(', cast(lat_deg as char(15)), ' ', cast(lon_deg as char(15)), ')'))) ) - radians(Y(GeomFromText('%s'))) )
+                  * cos( radians( X(GeomFromText(concat('POINT(', cast(latitude as char(15)), ' ', cast(longitude as char(15)), ')'))) ) )
+                  * cos( radians( Y(GeomFromText(concat('POINT(', cast(latitude as char(15)), ' ', cast(longitude as char(15)), ')'))) ) - radians(Y(GeomFromText('%s'))) )
                   + sin ( radians(X(GeomFromText('%s'))) )
-                  * sin( radians( X(GeomFromText(concat('POINT(', cast(lat_deg as char(15)), ' ', cast(lon_deg as char(15)), ')'))) ) )
+                  * sin( radians( X(GeomFromText(concat('POINT(', cast(latitude as char(15)), ' ', cast(longitude as char(15)), ')'))) ) )
                 )
             )", Collection::EARTH_RADIUS_IN_MILES, $originGeomPointText, $originGeomPointText, $originGeomPointText
         );
