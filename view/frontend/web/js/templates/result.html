@@ -9,8 +9,12 @@
             <p><%- record['street_address'] %></p>
             <p><%- record['city'] %>, <%- record['state'] %> <%- record['postal_code'] %></p>
             <p><%- record['phone'] %></p>
-             <span style="float: left;"><%- window.jQuery.mage.__('# In Stock') %>: <%- record['inventory'] %></span>
-
+             <span style="float: left;"><%- window.jQuery.mage.__('Available') %>: <%- record['inventory'] %></span>
+             <% if (record['inventory'] == 0) { %>
+               <button type="button" disabled class="button action submit primary choose-store-button" data-role="store-selector-choice"><span><span><%- window.jQuery.mage.__('Choose this store') %></span></span></button>
+             <% } else { %>
+               <button type="button" class="button action submit primary choose-store-button" data-role="store-selector-choice"><span><span><%- window.jQuery.mage.__('Choose this store') %></span></span></button>
+            <% } %>
         </form>
     </li>
     <% }); %>
