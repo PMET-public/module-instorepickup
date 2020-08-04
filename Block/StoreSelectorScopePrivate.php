@@ -64,8 +64,8 @@ class StoreSelectorScopePrivate extends StoreSelector
 
         // Build a string representing the store address
         $destinationAddress =
-            $storeLocation->getStreetAddress() . ", " .
-            $storeLocation->getCity() . ", " . $storeLocation->getState() . " " . $storeLocation->getPostalCode();
+            $storeLocation->getStreet() . ", " .
+            $storeLocation->getCity() . ", " . $storeLocation->getState() . " " . $storeLocation->getPostcode();
 
         // URL Encode the address
         $destinationAddress = urlencode($destinationAddress);

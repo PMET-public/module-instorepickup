@@ -84,7 +84,7 @@ class StoreLocation extends Session\SessionManager
     public function setStoreLocation(\MagentoEse\InStorePickup\Model\StoreLocation $storeLocation)
     {
         // Check to see if a valid store location was passed in
-        if ($storeLocation->getId() > 0) {
+        if ($storeLocation->getId() !='') {
             // define the data stored in the session
             $data = [
                 'id' => $storeLocation->getId()
@@ -117,7 +117,7 @@ class StoreLocation extends Session\SessionManager
                 $storeLocation->load($data['id']);
 
                 // save the store location to a class property for more efficient multiple gets
-                if ($storeLocation->getId() > 0)
+                if ($storeLocation->getId() != '')
                 {
                     $this->storeLocation = $storeLocation;
                 }

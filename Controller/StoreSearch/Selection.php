@@ -76,20 +76,20 @@ class Selection extends Action
         // Load the store location based on the ID sent in the params
         $storeLocation = $this->storeLocationFactory->create();
         $storeLocation->load($params['store-id']);
-        if ($storeLocation->getId() > 0) {
+        if ($storeLocation->getSourceCode() !='') {
 
             // Save the Store Location selection to the session
             $this->storeLocationSession->setStoreLocation($storeLocation);
 
             // Check if we need to update the StoreLocationId in the Quote
-            if ($this->checkoutSession->getQuote() && $this->checkoutSession->getQuote()->getInstorepickupStoreLocationId() > 0) {
+            if ($this->checkoutSession->getQuote() && $this->checkoutSession->getQuote()->getInstorepickupStoreLocationId() != '') {
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationId($storeLocation->getId());
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationName($storeLocation->getName());
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationCity($storeLocation->getCity());
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationState($storeLocation->getState());
-                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPostalCode($storeLocation->getPostalCode());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPostalCode($storeLocation->getPostcode());
                 $this->checkoutSession->getQuote()->setInstorepickupStoreLocationPhone($storeLocation->getPhone());
-                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationStreet($storeLocation->getStreetAddress());
+                $this->checkoutSession->getQuote()->setInstorepickupStoreLocationStreet($storeLocation->getStreet());
                 $this->checkoutSession->getQuote()->save();
             }
 
