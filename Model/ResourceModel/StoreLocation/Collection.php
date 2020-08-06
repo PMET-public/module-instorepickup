@@ -106,7 +106,9 @@ class Collection extends AbstractCollection
         /** @var $zipLoc \MagentoEse\InStorePickup\Model\ResourceModel\ZipcodeLocation */
         $zipLoc = $this->zipLocFactory->create();
         $geomPointText = $zipLoc->getGeomPointTextByZipcode($zipcode);
-
+        if($geomPointText==''){
+            $geomPointText='POINT(0 0)';
+        }
         $this->addDistanceColumn($geomPointText);
         $this->addDistanceFilter($distance, $geomPointText);
 

@@ -3,7 +3,6 @@
  * @var $block \MagentoEse\InStorePickup\Block\StoreSelector
  */
 ?>
-
 <?php if ($this->helper('MagentoEse\InStorePickup\Helper\Data')->isInStorePickupEnabled()): ?>
     <div id="instorepickup-storeselector" data-mage-init='{
             "magentoeseInStorePickupStoreSelector": {
@@ -19,6 +18,7 @@
                        class="input-text"
                        maxlength="5"
                        data-validate="{'required':true, 'validate-zip-international':true}"/>
+                    <input type="hidden" id="sku" name="sku" data-role="product-id-search-field" value="<?php echo($this->helper('MagentoEse\InStorePickup\Helper\Data')->getProductId()) ?>"/>
             </fieldset>
             <button class="action store-search" data-role="store-selector" title="<?php echo __('Search') ?>" type="submit">
                 <span><?php echo __('Search') ?></span>

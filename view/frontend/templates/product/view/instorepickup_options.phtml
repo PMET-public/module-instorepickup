@@ -44,5 +44,5 @@ $storeLocation = $block->getChosenStoreLocation();
     </div>
 
 <?php else: ?>
-    <span class="instorepickup-change-trigger"><?php echo __('Check in-store availability') ?></span>
+    <span class="instorepickup-change-trigger"><?php echo $block->getProductSku(); ?><?php echo __('Check in-store availability') ?></span>
 <?php endif; ?>

@@ -14,6 +14,7 @@ define([
         options: {
             resultContainer: "[data-role='result']",
             searchField: "[data-role='store-search-field']",
+            searchProductId: "[data-role='product-id-search-field']",
             searchUrl: '',
             selectionUrl: '',
             hasStoreBeenChosen: false,
@@ -150,9 +151,10 @@ define([
             $('body').find(self.options.messagesSelector).empty();
             self.element.find(self.options.resultContainer).empty();
             var params = {
-                "searchCriteria": $(self.options.searchField).val()
+                "searchCriteria": $(self.options.searchField).val(),
+                "productId": $(self.options.searchProductId).val()
             };
-
+            console.log(params);
             $.ajax({
                 url: self.options.searchUrl,
                 dataType: 'json',

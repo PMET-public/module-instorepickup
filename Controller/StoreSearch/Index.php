@@ -112,8 +112,13 @@ class Index extends Action
     public function execute()
     {
         $params = (array)$this->getRequest()->getParams();
-        $product = $this->productRepository->getById($this->catalogSession->getData('last_viewed_product_id'));
-        $sku = $product->getSku();
+        try {
+            $product = $this->productRepository->getById($params['productId']);
+            $sku = $product->getSku();
+        }catch(\Magento\Framework\Exception\NoSuchEntityException $exception){
+            $sku='0';
+        }
+
 
         // Define parameters for looking up available stores
         $zipcode = $params['searchCriteria'];
@@ -132,7 +137,7 @@ class Index extends Action
         $response['zipcode'] = $zipcode;
         foreach ($storeLocCol as $storeLoc) {
             //if the product is configurable, get the sku of the first product with inventory
-            if($product->getTypeId()=='configurable'){
+            if(isset($product) && $product->getTypeId()=='configurable'){
                 $children = $product->getTypeInstance()->getUsedProducts($product);
                 foreach ($children as $child){
                     if($this->getSourceItemDetailBySKU($child->getSku(),$storeLoc->getId())['quantity'] >0){
@@ -142,18 +147,22 @@ class Index extends Action
                 }
             }
             /** @var $storeLoc StoreLocation */
-            $response['stores'][] = [
-                'id' => $storeLoc->getId(),
-                'name' => $storeLoc->getName(),
-                'street_address' => $storeLoc->getStreet(),
-                'city' => $storeLoc->getCity(),
-                'state' => $storeLoc->getRegion(),
-                'postal_code' => $storeLoc->getPostcode(),
-                'phone' => $storeLoc->getPhone(),
-                'distance' => $storeLoc->getDistance(),
-                //'inventory' => $storeLoc->getInventory()
-                'inventory' => intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity'])
-            ];
+            $f = intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity']);
+            if(intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity']) > 0){
+                $response['stores'][] = [
+                    'id' => $storeLoc->getId(),
+                    'name' => $storeLoc->getName(),
+                    'street_address' => $storeLoc->getStreet(),
+                    'city' => $storeLoc->getCity(),
+                    'state' => $storeLoc->getRegion(),
+                    'postal_code' => $storeLoc->getPostcode(),
+                    'phone' => $storeLoc->getPhone(),
+                    'distance' => $storeLoc->getDistance(),
+                    //'inventory' => $storeLoc->getInventory()
+                    'inventory' => intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity'])
+                ];
+            }
+
         }
 
         // Represent the response as JSON and encode the response object as a JSON data set
