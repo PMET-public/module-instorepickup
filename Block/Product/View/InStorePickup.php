@@ -67,6 +67,10 @@ class InStorePickup extends Template
     {
         return $this->getDefaultAttributeText($this->getProduct(), 'in_store_available') == self::ADMIN_IN_STORE_AVAILABLE_YES;
     }
+    public function isOnlineExclusive()
+    {
+        return $this->getDefaultAttributeText($this->getProduct(), 'in_store_available') == self::ADMIN_IN_STORE_AVAILABLE_NO;
+    }
 
     public function getAvailabilityText()
     {

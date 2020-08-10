@@ -7,7 +7,7 @@
     <div class="instorepickup-pdp-wrapper">
     <?php if ($block->isAvailableInStore()): ?>
         <?php echo $block->getChildHtml('product.info.instorepickup.options') ?>
-    <?php else: ?>
+    <?php elseif ($block->isOnlineExclusive()): ?>
         <span class="availability-label">
             <?php echo __('Availability') ?>:
             <span class="availability-result"><?php echo $block->getAvailabilityText() ?></span>
