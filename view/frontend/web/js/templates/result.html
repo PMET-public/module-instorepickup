@@ -1,5 +1,5 @@
 <% if (typeof data.stores != "undefined" && data.stores.length) { %>
-<div class="result-summary"><%- window.jQuery.mage.__('Available at') %> <%- data.stores.length %> <%- window.jQuery.mage.__('stores within') %> <%- data.distance %> <%- window.jQuery.mage.__('km of') %> <%- data.zipcode %>.</div>
+<div class="result-summary"><%- window.jQuery.mage.__('Available at') %> <%- data.stores.length %> <%- window.jQuery.mage.__('stores within') %> <%- data.distance %> <%- window.jQuery.mage.__('miles of') %> <%- data.zipcode %>.</div>
 <ul>
     <% _.each(data.stores, function(record) { %>
     <li>
