@@ -3,10 +3,9 @@
 namespace MagentoEse\InStorePickup\Helper;
 
 use Magento\Framework\App\Helper\Context;
-use Magento\Store\Model\Store;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
-use Magento\Catalog\Block\Product\View\AbstractView;
+use MagentoEse\InStorePickup\Helper\Product;
 /**
  * Auto Fill module base helper
  */
@@ -17,13 +16,13 @@ class Data extends AbstractHelper
      */
     const CONFIG_PATH_ENABLED = 'magentoese_instorepickup/general/enable_instorepickup';
 
-    /** @var AbstractView */
-    protected $abstractView;
+    /** @var Product */
+    protected $productHelper;
 
-    public function __construct(Context $context,AbstractView $abstractView)
+    public function __construct(Context $context,Product $productHelper)
     {
         parent::__construct($context);
-        $this->abstractView = $abstractView;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -41,8 +40,8 @@ class Data extends AbstractHelper
 
     public function getProductId()
     {
-        if($this->abstractView->getProduct()){
-            return $this->abstractView->getProduct()->getId();
+        if($this->productHelper->getProduct()){
+            return $this->productHelper->getProduct()->getId();
         }else{
             return 0;
         }
