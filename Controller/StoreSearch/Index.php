@@ -140,27 +140,30 @@ class Index extends Action
             if(isset($product) && $product->getTypeId()=='configurable'){
                 $children = $product->getTypeInstance()->getUsedProducts($product);
                 foreach ($children as $child){
-                    if($this->getSourceItemDetailBySKU($child->getSku(),$storeLoc->getId())['quantity'] >0){
+                    if($this->getSourceItemDetailBySKU($child->getSku(),$storeLoc->getId())){
+                        if($this->getSourceItemDetailBySKU($child->getSku(),$storeLoc->getId())['quantity'] >0){
                         $sku = $child->getSku();
                         break;
+                    }
                     }
                 }
             }
             /** @var $storeLoc StoreLocation */
-            $f = intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity']);
-            if(intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity']) > 0){
-                $response['stores'][] = [
-                    'id' => $storeLoc->getId(),
-                    'name' => $storeLoc->getName(),
-                    'street_address' => $storeLoc->getStreet(),
-                    'city' => $storeLoc->getCity(),
-                    'state' => $storeLoc->getRegion(),
-                    'postal_code' => $storeLoc->getPostcode(),
-                    'phone' => $storeLoc->getPhone(),
-                    'distance' => $storeLoc->getDistance(),
-                    //'inventory' => $storeLoc->getInventory()
-                    'inventory' => intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity'])
-                ];
+            if($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())){
+                if(intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity']) > 0){
+                    $response['stores'][] = [
+                        'id' => $storeLoc->getId(),
+                        'name' => $storeLoc->getName(),
+                        'street_address' => $storeLoc->getStreet(),
+                        'city' => $storeLoc->getCity(),
+                        'state' => $storeLoc->getRegion(),
+                        'postal_code' => $storeLoc->getPostcode(),
+                        'phone' => $storeLoc->getPhone(),
+                        'distance' => $storeLoc->getDistance(),
+                        //'inventory' => $storeLoc->getInventory()
+                        'inventory' => intval($this->getSourceItemDetailBySKU($sku,$storeLoc->getId())['quantity'])
+                    ];
+                }
             }
 
         }
