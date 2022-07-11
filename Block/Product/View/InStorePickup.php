@@ -91,9 +91,12 @@ class InStorePickup extends Template
         // Reference:
         //  \Magento\Eav\Model\Entity\Attribute\Source\Table::getOptionText
         $isMultiple = false;
-        if (strpos($value, ',') !== false) {
-            $isMultiple = true;
-            $value = explode(',', $value);
+        if(!empty($value))
+        {
+            if (strpos($value, ',') !== false) {
+                $isMultiple = true;
+                $value = explode(',', $value);
+            }
         }
 
         // get the default (Admin store_id=0) values for the options
