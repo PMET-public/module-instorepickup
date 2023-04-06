@@ -27,13 +27,24 @@ class UpgradeData implements UpgradeDataInterface
      * @param BlockFactory $modelBlockFactory
      */
 
+     /**
+      * 
+      * @var EavSetupFactory
+      */
     private $eavSetupFactory;
 
     /**
-     * Init
-     *
-     * @param EavSetupFactory $eavSetupFactory
+     * 
+     * @var array
      */
+    private $inventoryStore;
+
+    /**
+     * 
+     * @param Magento\Cms\Model\BlockFactory $modelBlockFactory 
+     * @param Magento\Eav\Setup\EavSetupFactory $eavSetupFactory 
+     * @return void 
+     */    
 
     public function __construct(
         BlockFactory $modelBlockFactory,
